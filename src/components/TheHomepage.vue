@@ -3,16 +3,14 @@
 </template>
 
 <script>
-
 export default {
 
-    }
+}
 </script>
 
 <style scoped>
 h1 {
     background-color: rgb(129, 184, 99);
-    text-align:center;
+    text-align: center;
 }
-
 </style>

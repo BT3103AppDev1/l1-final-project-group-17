@@ -59,7 +59,7 @@
                 <br><br>
 
                 <div class = "back">
-                    <button id = "backbutton" type = "button" v-on:click="savetofs">Back</button>
+                    <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
                 </div>
             </div>
         </form>

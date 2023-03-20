@@ -4,24 +4,24 @@
             <h2>New Booking</h2>
 
             <div class = "formli">
-                <label for = "library">Library</label>
-                <select name = "library" id = "library">
+                <label for = "library1">Library</label>
+                <select name = "library1" id = "library1">
                     <option value = "clb">CLB</option>
                 </select>
                 <br><br>
-                <label for = "level">Level</label>
-                <select name = "level" id = "level">
+                <label for = "level1">Level</label>
+                <select name = "level1" id = "level1">
                     <option value = "level3">Level 3</option>
                     <option value = "level4">Level 4</option>
                     <option value = "level5">Level 5</option>
                     <option value = "level6">Level 6</option>
                 </select>
                 <br><br>
-                <label for = "bookingdate">Date</label>
-                <input type = "date" id = "bookingdate" name = "bookingdate">
+                <label for = "bookingdate1">Date</label>
+                <input type = "date" id = "bookingdate1" name = "bookingdate1">
                 <br><br>
-                <label for = "time">Time</label>
-                <select name = "time" id = "time">
+                <label for = "time1">Time</label>
+                <select name = "time1" id = "time1">
                     <option value = "9am">0900</option>
                     <option value = "10am">1000</option>
                     <option value = "11am">1100</option>
@@ -36,8 +36,8 @@
                     <option value = "8pm">2000</option>
                 </select>
                 <br><br>
-                <label for = "duration">Time</label>
-                <select name = "duration" id = "duration">
+                <label for = "duration1">Time</label>
+                <select name = "duration1" id = "duration1">
                     <option value = "1hr">1 hr</option>
                     <option value = "2hr">2 hrs</option>
                     <option value = "3hr">3 hrs</option>
@@ -72,6 +72,39 @@ import { getFirestore } from "firebase/firestore";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
+
+//creating the save function
+
+export default {
+    methods: {
+        async savetofs() {
+            console.log("IN AC")
+
+            let library = document.getElementById("library1").value
+            let level = document.getElementById("level1").value
+            let bookingdate = document.getElementById("bookingdate1").value
+            let time = document.getElementById("time1").value
+            let duration = document.getElementById("duration1").value
+
+            alert(" Saving your data for booking ")
+
+            try{
+                const docRef = await setDoc(doc(db, "Portfolio", library),{
+                    Library: library , Level : level, Bookingdate : bookingdate, Time : time, Duration : duration
+                })
+                console.log(docRef)
+                document.getElementById('myform').reset();
+                this.$emit("added")  
+            }
+            catch(error) {
+                console.error("Error adding document: ", error);
+            }
+
+        }
+    }
+}
+
+
 </script>
 
 <style scoped>

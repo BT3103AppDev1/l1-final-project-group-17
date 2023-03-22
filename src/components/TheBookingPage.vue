@@ -54,7 +54,7 @@
                 <br><br>
 
                 <div class = "checkseats">
-                    <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
+                    <button id = "checkseatsbutton" type = "button" v-on:click="savetofs">Check Available Seats </button>
                 </div>
                 <br><br>
 
@@ -89,8 +89,9 @@ export default {
             alert(" Saving your data for booking ")
 
             try{
-                const docRef = await setDoc(doc(db, "Portfolio", library),{
-                    Library: library , Level : level, Bookingdate : bookingdate, Time : time, Duration : duration
+                const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
+                    Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
+                    Time : this.time, Duration : this.duration
                 })
                 console.log(docRef)
                 document.getElementById('myform').reset();

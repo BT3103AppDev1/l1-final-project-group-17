@@ -54,7 +54,7 @@
                 <br><br>
 
                 <div class = "checkseats">
-                    <button id = "checkseatsbutton" type = "button" v-on:click="savetofs">Check Available Seats </button>
+                    <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
                 </div>
                 <br><br>
 
@@ -100,6 +100,15 @@ export default {
                 console.error("Error adding document: ", error);
             }
 
+        },
+
+        checkseats(){
+            // Navigate to seat booking page
+            return
+        },
+
+        gobackbutton() {
+            this.$router.push({ name: 'Home' })
         }
     }
 }

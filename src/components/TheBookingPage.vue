@@ -1,14 +1,16 @@
-<template>
+<template >
     <div class = "container">
         <form id = "myform">
             <div class = "formli">
                 <label for = "library1">Library</label> <br>
                 <select name = "library1" id = "library1">
+                    <option value = "select">--Select an option--</option>
                     <option value = "clb">CLB</option>
                 </select>
                 <br><br>
                 <label for = "level1">Level</label> <br>
                 <select name = "level1" id = "level1">
+                    <option value = "select">--Select an option--</option>
                     <option value = "level3">Level 3</option>
                     <option value = "level4">Level 4</option>
                     <option value = "level5">Level 5</option>
@@ -16,37 +18,40 @@
                 </select>
                 <br><br>
                 <label for = "bookingdate1">Date</label> <br>
-                <input type = "date" id = "bookingdate1" name = "bookingdate1">
+                    <input type = "date" id = "bookingdate1" name = "bookingdate1" v-on:click="validDate">
                 <br><br>
                 <label for = "time1">Time Start</label> <br>
                 <select name = "time1" id = "time1">
-                    <option value = "9am">0900</option>
-                    <option value = "10am">1000</option>
-                    <option value = "11am">1100</option>
-                    <option value = "12pm">1200</option>
-                    <option value = "1pm">1300</option>
-                    <option value = "2pm">1400</option>
-                    <option value = "3pm">1500</option>
-                    <option value = "4pm">1600</option>
-                    <option value = "5pm">1700</option>
-                    <option value = "6pm">1800</option>
-                    <option value = "7pm">1900</option>
-                    <option value = "8pm">2000</option>
+                    <option value = "select">--Select an option--</option>
+                    <option value = "0900">0900</option>
+                    <option value = "1000">1000</option>
+                    <option value = "1100">1100</option>
+                    <option value = "1200">1200</option>
+                    <option value = "1300">1300</option>
+                    <option value = "1400">1400</option>
+                    <option value = "1500">1500</option>
+                    <option value = "1600">1600</option>
+                    <option value = "1700">1700</option>
+                    <option value = "1800">1800</option>
+                    <option value = "1900">1900</option>
+                    <option value = "2000">2000</option>
                 </select>
                 <br><br>
                 <label for = "duration1">Time End</label> <br>
-                <select name = "duration1" id = "time2">
-                    <option value = "10am">1000</option>
-                    <option value = "11am">1100</option>
-                    <option value = "12pm">1200</option>
-                    <option value = "1pm">1300</option>
-                    <option value = "2pm">1400</option>
-                    <option value = "3pm">1500</option>
-                    <option value = "4pm">1600</option>
-                    <option value = "5pm">1700</option>
-                    <option value = "6pm">1800</option>
-                    <option value = "7pm">1900</option>
-                    <option value = "8pm">2100</option>
+                <select name = "duration1" id = "time2" v-on:click="validTime">
+                    <option value = "select">--Select an option--</option>
+                    <option id = "1000" value = "1000">1000</option>
+                    <option id = "1100" value = "1100">1100</option>
+                    <option id = "1200" value = "1200">1200</option>
+                    <option id = "1300" value = "1300">1300</option>
+                    <option id = "1400" value = "1400">1400</option>
+                    <option id = "1500" value = "1500">1500</option>
+                    <option id = "1600" value = "1600">1600</option>
+                    <option id = "1700" value = "1700">1700</option>
+                    <option id = "1800" value = "1800">1800</option>
+                    <option id = "1900" value = "1900">1900</option>
+                    <option id = "2000" value = "2000">2000</option>
+                    <option id = "2100" value = "2100">2100</option>
                 </select>
                 <br><br>
             </div>
@@ -66,50 +71,70 @@
 </template>
 
 <script>
-import firebaseApp from'../firebase.js';
-import { getFirestore } from "firebase/firestore";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+    import firebaseApp from'../firebase.js';
+    import { getFirestore } from "firebase/firestore";
+    import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
-const db = getFirestore(firebaseApp);
+    const db = getFirestore(firebaseApp);
 
-//creating the save function
+    export default {
+        methods: {
+            validDate(){
+                let today = new Date().toISOString().split('T')[0];
+                let three_days_from_today = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                document.getElementById("bookingdate1").setAttribute('min', today);
+                document.getElementById("bookingdate1").setAttribute('max', three_days_from_today)
+	        },
 
-export default {
-    methods: {
-        async checkseats() {
-            let library = document.getElementById("library1").value
-            let level = document.getElementById("level1").value
-            let bookingdate = document.getElementById("bookingdate1").value
-            let time = document.getElementById("time1").value
-            let duration = document.getElementById("duration1").value
+            validTime(){
+                let start = document.getElementById("time1").value
 
-            alert(" Saving your data for booking ")
+                let times = ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100"]
 
-            try{
-                const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
-                    Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
-                    Time : this.time, Duration : this.duration
-                })
-                console.log(docRef)
-                document.getElementById('myform').reset();
-                this.$emit("added")  
+                for (let i = 0; i < times.length; i++) {
+                    if (times[i] <= start) {
+                        document.getElementById(times[i]).setAttribute("disabled", "")
+                    } else {
+                        document.getElementById(times[i]).removeAttribute("disabled")
+                    }
+                }
+
+            },
+
+            async checkseats() {
+                let library = document.getElementById("library1").value
+                let level = document.getElementById("level1").value
+                let bookingdate = document.getElementById("bookingdate1").value
+                let time = document.getElementById("time1").value
+                let duration = document.getElementById("duration1").value
+
+                alert(" Saving your data for booking ")
+
+                try{
+                    const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
+                        Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
+                        Time : this.time, Duration : this.duration
+                    })
+                    console.log(docRef)
+                    document.getElementById('myform').reset();
+                    this.$emit("added")  
+                }
+                catch(error) {
+                    console.error("Error adding document: ", error);
+                }
+
+            },
+
+            checkseats(){
+                // Navigate to seat booking page
+                return
+            },
+
+            gobackbutton() {
+                this.$router.push({ name: 'Home' })
             }
-            catch(error) {
-                console.error("Error adding document: ", error);
-            }
-
-        },
-
-        checkseats(){
-            // Navigate to seat booking page
-            return
-        },
-
-        gobackbutton() {
-            this.$router.push({ name: 'Home' })
         }
     }
-}
 
 
 </script>

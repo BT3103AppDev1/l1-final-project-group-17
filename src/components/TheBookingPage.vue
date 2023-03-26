@@ -160,4 +160,9 @@ export default {
         margin-left: 10px;
         margin-right: 10px;
     }
+
+    button:hover {
+        transition: 0.3s;
+        background-color:#003d7c;
+    }
 </style>

@@ -40,5 +40,9 @@ header {
         place-items: flex-start;
         flex-wrap: wrap;
     }
+
+    html * {
+        font-family: Montserrat;
+    }
 }
 </style>

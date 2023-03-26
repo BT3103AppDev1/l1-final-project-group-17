@@ -1,28 +1,44 @@
 <template>
     <div id = "main">
-        <TheBookingPageVue />
+        <div id = "head">
+            <TheSideBar />
+            <h1>New Booking</h1>
+        </div>
+        <TheBookingPage/>
     </div>
 </template>
 
 <script>
-    import TheBookingPageVue from '@/components/TheBookingPage.vue'
-        export default {
-          name: 'App',
-          components:{
-              TheBookingPageVue
-          },
-        }
+    import TheBookingPage from '@/components/TheBookingPage.vue'
+    import TheSideBar from '@/components/TheSideBar.vue'
+    export default {
+        name: 'App',
+        components:{
+            TheBookingPage,
+            TheSideBar
+        },
+    }
 </script>
 
 <style scoped>
-header {
-    line-height: 1.5;
-}
+    h2{
+        color: rgb(239, 124, 0);
+        text-align: left;
+    }
+        
+    header {
+        line-height: 1.5;
+    }
 
-.logo {
-    display: block;
-    margin: 0 auto 2rem;
-}
+    .logo {
+        display: block;
+        margin: 0 auto 2rem;
+    }
+
+    #head {
+        display: flex;
+        width: 50%;
+    }
 
 @media (min-width: 1024px) {
     header {
@@ -39,6 +55,10 @@ header {
         display: flex;
         place-items: flex-start;
         flex-wrap: wrap;
+    }
+
+    html * {
+        font-family: Montserrat;
     }
 }
 </style>

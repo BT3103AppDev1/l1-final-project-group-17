@@ -1,15 +1,13 @@
 <template>
     <div class = "container">
         <form id = "myform">
-            <h2>New Booking</h2>
-
             <div class = "formli">
-                <label for = "library1">Library</label>
+                <label for = "library1">Library</label> <br>
                 <select name = "library1" id = "library1">
                     <option value = "clb">CLB</option>
                 </select>
                 <br><br>
-                <label for = "level1">Level</label>
+                <label for = "level1">Level</label> <br>
                 <select name = "level1" id = "level1">
                     <option value = "level3">Level 3</option>
                     <option value = "level4">Level 4</option>
@@ -17,10 +15,10 @@
                     <option value = "level6">Level 6</option>
                 </select>
                 <br><br>
-                <label for = "bookingdate1">Date</label>
+                <label for = "bookingdate1">Date</label> <br>
                 <input type = "date" id = "bookingdate1" name = "bookingdate1">
                 <br><br>
-                <label for = "time1">Time</label>
+                <label for = "time1">Time Start</label> <br>
                 <select name = "time1" id = "time1">
                     <option value = "9am">0900</option>
                     <option value = "10am">1000</option>
@@ -36,33 +34,34 @@
                     <option value = "8pm">2000</option>
                 </select>
                 <br><br>
-                <label for = "duration1">Time</label>
-                <select name = "duration1" id = "duration1">
-                    <option value = "1hr">1 hr</option>
-                    <option value = "2hr">2 hrs</option>
-                    <option value = "3hr">3 hrs</option>
-                    <option value = "4hr">4 hrs</option>
-                    <option value = "5hr">5 hrs</option>
-                    <option value = "6hr">6 hrs</option>
-                    <option value = "7hr">7 hrs</option>
-                    <option value = "8hr">8 hrs</option>
-                    <option value = "9hr">9 hrs</option>
-                    <option value = "10hr">10 hrs</option>
-                    <option value = "11hr">11 hrs</option>
-                    <option value = "12hr">12 hrs</option>
+                <label for = "duration1">Time End</label> <br>
+                <select name = "duration1" id = "time2">
+                    <option value = "10am">1000</option>
+                    <option value = "11am">1100</option>
+                    <option value = "12pm">1200</option>
+                    <option value = "1pm">1300</option>
+                    <option value = "2pm">1400</option>
+                    <option value = "3pm">1500</option>
+                    <option value = "4pm">1600</option>
+                    <option value = "5pm">1700</option>
+                    <option value = "6pm">1800</option>
+                    <option value = "7pm">1900</option>
+                    <option value = "8pm">2100</option>
                 </select>
                 <br><br>
+            </div>
+        </form>
 
+        <div class = "buttons">
                 <div class = "checkseats">
-                    <button id = "checkseatsbutton" type = "button" v-on:click="savetofs">Check Available Seats </button>
+                    <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
                 </div>
-                <br><br>
+                
 
                 <div class = "back">
                     <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
                 </div>
-            </div>
-        </form>
+        </div>
     </div>
 </template>
 
@@ -77,9 +76,7 @@ const db = getFirestore(firebaseApp);
 
 export default {
     methods: {
-        async savetofs() {
-            console.log("IN AC")
-
+        async checkseats() {
             let library = document.getElementById("library1").value
             let level = document.getElementById("level1").value
             let bookingdate = document.getElementById("bookingdate1").value
@@ -118,17 +115,17 @@ export default {
 </script>
 
 <style scoped>
-    h2{
-        background-color: rgb(239, 124, 0);
+    #myform{
+        text-align: left;
     }
 
     .formli{
-        display: inline-block;
-        text-align: right;
+    display: inline-block;
+    text-align: left;
     }
 
     form {
-        text-align: center;
+        text-align: right;
         align-items: center;
         margin: auto;
     }
@@ -142,7 +139,12 @@ export default {
         text-align: center;
     }
 
-    #backbutton {
+    .buttons {
+        display: flex;
+        width: 50%;
+    }
+
+    button {
         background-color:#ef7c00;
         font: 700;
         font-weight: bold;
@@ -154,5 +156,7 @@ export default {
         padding-right: 30px;
         padding-top: 10px;
         padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 </style>

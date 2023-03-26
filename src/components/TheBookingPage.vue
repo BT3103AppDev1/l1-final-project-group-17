@@ -21,7 +21,7 @@
                     <input type = "date" id = "bookingdate1" name = "bookingdate1" v-on:click="validDate">
                 <br><br>
                 <label for = "time1">Time Start</label> <br>
-                <select name = "time1" id = "time1">
+                <select name = "time1" id = "time1" v-on:click="updateStart">
                     <option value = "select">--Select an option--</option>
                     <option value = "0900">0900</option>
                     <option value = "1000">1000</option>
@@ -37,8 +37,8 @@
                     <option value = "2000">2000</option>
                 </select>
                 <br><br>
-                <label for = "time2">Time End</label> <br>
-                <select name = "time2" id = "time2" v-on:click="validTime">
+                <label for = "time2" v-if="startTimeEntered">Time End</label> <br>
+                <select name = "time2" id = "time2" v-if="startTimeEntered" v-on:click="validTime">
                     <option value = "select">--Select an option--</option>
                     <option id = "1000" value = "1000">1000</option>
                     <option id = "1100" value = "1100">1100</option>
@@ -77,6 +77,12 @@
     const db = getFirestore(firebaseApp);
 
     export default {
+        data() {
+            return {
+                startTimeEntered: false,
+            }
+        },
+
         methods: {
             validDate(){
                 let today = new Date().toISOString().split('T')[0];
@@ -85,13 +91,18 @@
                 document.getElementById("bookingdate1").setAttribute('max', three_days_from_today)
 	        },
 
+            updateStart(){
+                this.startTimeEntered = document.getElementById("time1").value != "select"
+                console.log(this.startTimeEntered)
+            },
+
             validTime(){
                 let start = document.getElementById("time1").value
 
                 let times = ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100"]
 
                 for (let i = 0; i < times.length; i++) {
-                    if (times[i] <= start) {
+                    if (times[i] <= start || start == "select") {
                         document.getElementById(times[i]).setAttribute("disabled", "")
                     } else {
                         document.getElementById(times[i]).removeAttribute("disabled")

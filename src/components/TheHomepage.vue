@@ -26,9 +26,13 @@
 
 
 <script>
-export default {
-
-}
+    export default {
+        methods: {
+            goBooking() {
+                this.$router.push({ name: 'Booking' })
+            }
+        }
+    }
 </script>
 
 <style>
@@ -71,7 +75,11 @@ th,td {
     color: white;
     border-color: white;
     border-radius: 30px;
-    padding:15px;
+    border-radius: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #im_here:hover, #view_occupancy:hover, #new_booking:hover {

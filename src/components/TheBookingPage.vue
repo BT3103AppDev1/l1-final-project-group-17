@@ -118,27 +118,41 @@ export default {
 </script>
 
 <style scoped>
-h2{
-    background-color: rgb(239, 124, 0);
-}
+    h2{
+        background-color: rgb(239, 124, 0);
+    }
 
-.formli{
-    display: inline-block;
-    text-align: right;
-}
+    .formli{
+        display: inline-block;
+        text-align: right;
+    }
 
-form {
-    text-align: center;
-    align-items: center;
-    margin: auto;
-}
+    form {
+        text-align: center;
+        align-items: center;
+        margin: auto;
+    }
 
-input:hover {
-    box-shadow: 3px 3px rgb(0, 61, 124);
-    border-radius: 2px;
-}
+    input:hover {
+        box-shadow: 3px 3px rgb(0, 61, 124);
+        border-radius: 2px;
+    }
 
-.save{
-    text-align: center;
-}
+    .save{
+        text-align: center;
+    }
+
+    #backbutton {
+        background-color:#ef7c00;
+        font: 700;
+        font-weight: bold;
+        font-size: 1em;
+        color: white;
+        border-color: white;
+        border-radius: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 </style>

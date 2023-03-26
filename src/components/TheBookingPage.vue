@@ -37,8 +37,8 @@
                     <option value = "2000">2000</option>
                 </select>
                 <br><br>
-                <label for = "duration1">Time End</label> <br>
-                <select name = "duration1" id = "time2" v-on:click="validTime">
+                <label for = "time2">Time End</label> <br>
+                <select name = "time2" id = "time2" v-on:click="validTime">
                     <option value = "select">--Select an option--</option>
                     <option id = "1000" value = "1000">1000</option>
                     <option id = "1100" value = "1100">1100</option>
@@ -61,7 +61,6 @@
                 <div class = "checkseats">
                     <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
                 </div>
-                
 
                 <div class = "back">
                     <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
@@ -98,36 +97,42 @@
                         document.getElementById(times[i]).removeAttribute("disabled")
                     }
                 }
-
             },
 
             async checkseats() {
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
-                let time = document.getElementById("time1").value
-                let duration = document.getElementById("duration1").value
+                let time1 = document.getElementById("time1").value
+                let time2 = document.getElementById("time2").value
 
-                alert(" Saving your data for booking ")
+                console.log(time1)
+                console.log(time2)
 
-                try{
-                    const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
-                        Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
-                        Time : this.time, Duration : this.duration
-                    })
-                    console.log(docRef)
-                    document.getElementById('myform').reset();
-                    this.$emit("added")  
-                }
-                catch(error) {
-                    console.error("Error adding document: ", error);
+                if (library == "select" || level == "select" || time1 == "select" || time2 == "select" || bookingdate == "") {
+                    alert("Some fields are not selected!")
+                    return
                 }
 
-            },
+                if (time1 >= time2) {
+                    alert("End time must be later than start time! (End time is " + time2 + ", it should be later than " + time1+ ")")
+                    return
+                }
+                
 
-            checkseats(){
-                // Navigate to seat booking page
-                return
+                // try{
+                //     const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
+                //         Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
+                //         Time : this.time, Duration : this.duration
+                //     })
+                //     console.log(docRef)
+                //     document.getElementById('myform').reset();
+                //     this.$emit("added")  
+                // }
+                // catch(error) {
+                //     console.error("Error adding document: ", error);
+                // }
+
             },
 
             gobackbutton() {

@@ -1,9 +1,11 @@
 <template>
-    <div id ="nav">
-    <router-link to = "/Home"> Home </router-link> |
-    <router-link to = "/Booking"> Booking </router-link>
+    <div id = "main">
+        <div id ="nav">
+        <router-link to = "/Home"> Home </router-link> |
+        <router-link to = "/Booking"> Booking </router-link>
+        </div>
+        <router-view/>
     </div>
-    <router-view/>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
         <form id = "myform">
             <div class = "formli">
                 <label for = "library1">Library</label> <br>
-                <select name = "library1" id = "library1">
+                <select name = "library1" id = "library1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
                     <option value = "clb">CLB</option>
                 </select>
@@ -11,7 +11,7 @@
                 <br>
 
                 <label for = "level1">Level</label> <br>
-                <select name = "level1" id = "level1">
+                <select name = "level1" id = "level1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
                     <option value = "level5">Level 5</option>
                     <option value = "level6">Level 6</option>
@@ -85,16 +85,22 @@
             </div>
         </form>
 
-        <div class = "buttons">
-                <div class = "checkseats">
-                    <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
-                </div>
+        <div class = "picture">
+                <img src = "@/assets/clb_level_6.jpg" alt="Seating plan not found" v-if="clblevel6">
+        </div>  
+    </div>
 
-                <div class = "back">
-                    <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
-                </div>
+    <div class = "buttons">
+        <div class = "checkseats">
+            <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
+        </div>
+
+        <div class = "back">
+            <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
         </div>
     </div>
+
+
 </template>
 
 <script>
@@ -108,6 +114,9 @@
         data() {
             return {
                 startTimeEntered: false,
+                clblevel6: false,
+                clblevel5: false,
+                clbchinese: false
             }
         },
 
@@ -118,6 +127,23 @@
                 document.getElementById("bookingdate1").setAttribute('min', today);
                 document.getElementById("bookingdate1").setAttribute('max', three_days_from_today)
 	        },
+
+            updatePicture(){
+                let library = document.getElementById("library1").value
+                let level = document.getElementById("level1").value
+
+                this.clblevel6 = false
+                this.clblevel5 = false
+                this.clbchinese = false
+
+                if (library == "clb" && level =="level6") {
+                    this.clblevel6 = true
+                } else if (library == "clb" && level =="level5") {
+                    this.clblevel5 = true
+                } else if (library == "clb" && level =="level6(Chinese Library)") {
+                    this.clbchinese = true
+                }
+            },
 
             updateStart(){
                 this.startTimeEntered = document.getElementById("time1").value != "select"
@@ -230,6 +256,20 @@
     .buttons {
         display: flex;
         width: 50%;
+    }
+
+    .container {
+        display: flex;
+        width: 50%;
+    }
+
+    img{
+        width:1000%;
+        max-width:60rem;
+    }
+
+    .picture{
+        padding-left: 20px
     }
 
     .timeselect {

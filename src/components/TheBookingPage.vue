@@ -65,21 +65,7 @@
                 </div>
                 
                 <label for = "seat">Seat</label> <br>
-                <select name = "seat" id = "seat">
-                    <option value = "select">--Select an option--</option>
-                    <option id = "1" value = "1">1</option>
-                    <option id = "2" value = "2">2</option>
-                    <option id = "3" value = "3">3</option>
-                    <option id = "4" value = "4">4</option>
-                    <option id = "5" value = "5">5</option>
-                    <option id = "6" value = "6">6</option>
-                    <option id = "7" value = "7">7</option>
-                    <option id = "8" value = "8">8</option>
-                    <option id = "9" value = "9">9</option>
-                    <option id = "10" value = "10">10</option>
-                    <option id = "11" value = "11">11</option>
-                    <option id = "12" value = "12">12</option>
-                </select>
+                <input type="number" id = "seat" required="" placeholder = "Enter seat number">
                 <br><br>
 
             </div>
@@ -171,6 +157,8 @@
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value
                 let seat = document.getElementById("seat").value
+
+                console.log(seat)
 
                 if (library == "select" || level == "select" || time1 == "select" || time2 == "select" || bookingdate == "" || seat == "select") {
                     alert("Some fields are not selected!")

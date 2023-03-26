@@ -7,53 +7,81 @@
                     <option value = "select">--Select an option--</option>
                     <option value = "clb">CLB</option>
                 </select>
-                <br><br>
+
+                <br>
+
                 <label for = "level1">Level</label> <br>
                 <select name = "level1" id = "level1">
                     <option value = "select">--Select an option--</option>
-                    <option value = "level3">Level 3</option>
-                    <option value = "level4">Level 4</option>
                     <option value = "level5">Level 5</option>
                     <option value = "level6">Level 6</option>
+                    <option value = "level6(Chinese Library)">Level 6 (Chinese Library)</option>
                 </select>
-                <br><br>
+
+                <br>
+
                 <label for = "bookingdate1">Date</label> <br>
                     <input type = "date" id = "bookingdate1" name = "bookingdate1" v-on:click="validDate">
-                <br><br>
-                <label for = "time1">Time Start</label> <br>
-                <select name = "time1" id = "time1" v-on:click="updateStart">
+                <br>
+
+                <div id = "timeselect">
+                    <div id = "time1div">
+                        <label for = "time1">Time Start</label> <br>
+                        <select name = "time1" id = "time1" v-on:click="updateStart">
+                            <option value = "select">--Select an option--</option>
+                            <option value = "0900">0900</option>
+                            <option value = "1000">1000</option>
+                            <option value = "1100">1100</option>
+                            <option value = "1200">1200</option>
+                            <option value = "1300">1300</option>
+                            <option value = "1400">1400</option>
+                            <option value = "1500">1500</option>
+                            <option value = "1600">1600</option>
+                            <option value = "1700">1700</option>
+                            <option value = "1800">1800</option>
+                            <option value = "1900">1900</option>
+                            <option value = "2000">2000</option>
+                        </select>
+                    </div>
+
+                    <div id = "time2div">
+                        <label for = "time2" v-if="startTimeEntered">Time End</label> <br>
+                        <select name = "time2" id = "time2" v-if="startTimeEntered" v-on:click="validTime">
+                            <option value = "select">--Select an option--</option>
+                            <option id = "1000" value = "1000">1000</option>
+                            <option id = "1100" value = "1100">1100</option>
+                            <option id = "1200" value = "1200">1200</option>
+                            <option id = "1300" value = "1300">1300</option>
+                            <option id = "1400" value = "1400">1400</option>
+                            <option id = "1500" value = "1500">1500</option>
+                            <option id = "1600" value = "1600">1600</option>
+                            <option id = "1700" value = "1700">1700</option>
+                            <option id = "1800" value = "1800">1800</option>
+                            <option id = "1900" value = "1900">1900</option>
+                            <option id = "2000" value = "2000">2000</option>
+                            <option id = "2100" value = "2100">2100</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <label for = "seat">Seat</label> <br>
+                <select name = "seat" id = "seat">
                     <option value = "select">--Select an option--</option>
-                    <option value = "0900">0900</option>
-                    <option value = "1000">1000</option>
-                    <option value = "1100">1100</option>
-                    <option value = "1200">1200</option>
-                    <option value = "1300">1300</option>
-                    <option value = "1400">1400</option>
-                    <option value = "1500">1500</option>
-                    <option value = "1600">1600</option>
-                    <option value = "1700">1700</option>
-                    <option value = "1800">1800</option>
-                    <option value = "1900">1900</option>
-                    <option value = "2000">2000</option>
+                    <option id = "1" value = "1">1</option>
+                    <option id = "2" value = "2">2</option>
+                    <option id = "3" value = "3">3</option>
+                    <option id = "4" value = "4">4</option>
+                    <option id = "5" value = "5">5</option>
+                    <option id = "6" value = "6">6</option>
+                    <option id = "7" value = "7">7</option>
+                    <option id = "8" value = "8">8</option>
+                    <option id = "9" value = "9">9</option>
+                    <option id = "10" value = "10">10</option>
+                    <option id = "11" value = "11">11</option>
+                    <option id = "12" value = "12">12</option>
                 </select>
                 <br><br>
-                <label for = "time2" v-if="startTimeEntered">Time End</label> <br>
-                <select name = "time2" id = "time2" v-if="startTimeEntered" v-on:click="validTime">
-                    <option value = "select">--Select an option--</option>
-                    <option id = "1000" value = "1000">1000</option>
-                    <option id = "1100" value = "1100">1100</option>
-                    <option id = "1200" value = "1200">1200</option>
-                    <option id = "1300" value = "1300">1300</option>
-                    <option id = "1400" value = "1400">1400</option>
-                    <option id = "1500" value = "1500">1500</option>
-                    <option id = "1600" value = "1600">1600</option>
-                    <option id = "1700" value = "1700">1700</option>
-                    <option id = "1800" value = "1800">1800</option>
-                    <option id = "1900" value = "1900">1900</option>
-                    <option id = "2000" value = "2000">2000</option>
-                    <option id = "2100" value = "2100">2100</option>
-                </select>
-                <br><br>
+
             </div>
         </form>
 
@@ -93,7 +121,6 @@
 
             updateStart(){
                 this.startTimeEntered = document.getElementById("time1").value != "select"
-                console.log(this.startTimeEntered)
             },
 
             validTime(){
@@ -114,13 +141,12 @@
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
+                //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value
+                let seat = document.getElementById("seat").value
 
-                console.log(time1)
-                console.log(time2)
-
-                if (library == "select" || level == "select" || time1 == "select" || time2 == "select" || bookingdate == "") {
+                if (library == "select" || level == "select" || time1 == "select" || time2 == "select" || bookingdate == "" || seat == "select") {
                     alert("Some fields are not selected!")
                     return
                 }
@@ -129,7 +155,7 @@
                     alert("End time must be later than start time! (End time is " + time2 + ", it should be later than " + time1+ ")")
                     return
                 }
-                
+       
 
                 // try{
                 //     const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
@@ -161,6 +187,13 @@
         margin-left: 20px;
     }
 
+    #time1div,
+    #time2div{
+        display:inline-block;
+        width:50%;
+        vertical-align: top;
+    }
+
     .formli{
         display: inline-block;
         text-align: left;
@@ -170,6 +203,19 @@
         text-align: right;
         align-items: center;
         margin: auto;
+    }
+
+    select {
+        margin-bottom: 10px;
+    }
+
+    input{
+        margin-bottom: 10px;
+    }
+
+    select:hover {
+        box-shadow: 3px 3px rgb(0, 61, 124);
+        border-radius: 2px;
     }
 
     input:hover {
@@ -184,6 +230,11 @@
     .buttons {
         display: flex;
         width: 50%;
+    }
+
+    .timeselect {
+        display: flex;
+        width: 40%;
     }
 
     button {

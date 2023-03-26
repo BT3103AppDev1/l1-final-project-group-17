@@ -117,11 +117,12 @@ export default {
 <style scoped>
     #myform{
         text-align: left;
+        margin-left: 20px;
     }
 
     .formli{
-    display: inline-block;
-    text-align: left;
+        display: inline-block;
+        text-align: left;
     }
 
     form {

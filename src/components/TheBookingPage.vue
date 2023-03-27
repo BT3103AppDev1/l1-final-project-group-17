@@ -73,6 +73,8 @@
 
         <div class = "picture">
                 <img src = "@/assets/clb_level_6.jpg" alt="Seating plan not found" v-if="clblevel6">
+                <img src = "@/assets/clb_level_5.jpg" alt="Seating plan not found" v-if="clblevel5">
+                <img src = "@/assets/clb_chinese_6.jpg" alt="Seating plan not found" v-if="clbchinese">
         </div>  
     </div>
 

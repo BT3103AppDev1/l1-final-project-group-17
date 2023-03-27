@@ -32,13 +32,27 @@
 </template>
 
 <script>
+    import firebaseApp from'../firebase.js';
+    import { deleteField, getFirestore, updateDoc } from "firebase/firestore";
+    import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+    const db = getFirestore(firebaseApp);
+
     export default {
         methods: {
             goHome() {
                 this.$router.push({ name: 'Home' })
+            },
+            deleteBooking() {
+                const bookingRef = doc(db, "bookings/20230320");
+                updateDoc(bookingRef, {
+                    ["central.l6.A01.1000-1100"]: deleteField()
+                });
+                alert("your booking has been deleted");
+                this.$router.push({ name: 'Home' })
             }
         }
     }
+
 </script>
 
 <style>

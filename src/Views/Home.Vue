@@ -2,14 +2,20 @@
     <div id = "main">
         <TheHomepageVue />
     </div>
+
+    <div id = "sidebar">
+        <TheSidebarVue />
+    </div>
 </template>
 
 <script>
     import TheHomepageVue from '@/components/TheHomepage.vue'
+    import TheSidebarVue from '@/components/TheSidebar.vue';
         export default {
           name: 'App',
           components:{
-              TheHomepageVue
+              TheHomepageVue, 
+              TheSidebarVue
           },
         }
 </script>

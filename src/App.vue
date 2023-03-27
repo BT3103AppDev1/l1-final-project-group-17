@@ -1,20 +1,21 @@
 <template>
-    <div id = "main">
-        <div id ="nav">
-        <router-link to = "/Home"> Home </router-link> |
-        <router-link to = "/Booking"> Booking </router-link>
-        </div>
-        <router-view/>
+    <div id="app">
+        <router-view></router-view>
     </div>
-</template>
+  </template>
 
 <script>
-    export default{
-        name: 'App'
-    }
+import Login from "@/components/TheLoginPage.vue"
+
+    export default {
+        name: 'App',
+        components: {
+            Login,
+        }
+    };
 </script>
 
-<style>
+<style scoped>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat');
     
     #app {

@@ -1,10 +1,9 @@
 <template>
-    <div id = "main">
-        <div id = "head">
-            <TheSideBar />
-            <h1>New Booking</h1>
-        </div>
-        <TheBookingPage/>
+    <div id="main">
+        <TheBookingPageVue />
+    </div>
+    <div id = sidebar> 
+        <TheSidebarVue />
     </div>
 </template>
 
@@ -59,6 +58,10 @@
 
     html * {
         font-family: Montserrat;
+    }
+
+    #sidebar{
+        float: left;
     }
 }
 </style>

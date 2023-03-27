@@ -11,12 +11,12 @@
 
 <script>
     import TheOccupancyPageVue from '@/components/TheOccupancyPage.vue'
-    import TheSideBarVue from '@/components/TheSideBar.vue'
+    import TheSidebarVue from '@/components/TheSidebar.vue'
         export default {
           name: 'App',
           components:{
               TheOccupancyPageVue,
-              TheSideBarVue
+              TheSidebarVue
           },
         }
 </script>

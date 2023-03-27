@@ -2,24 +2,27 @@
     <div id="main">
         <TheBookingPageVue />
     </div>
-    <div id = sidebar> 
+    <div id = "sidebar"> 
         <TheSidebarVue />
     </div>
 </template>
 
 <script>
-    import TheBookingPage from '@/components/TheBookingPage.vue'
-    import TheSideBar from '@/components/TheSideBar.vue'
+    import TheBookingPageVue from '@/components/TheBookingPage.vue'
+    import TheSidebarVue from '@/components/TheSidebar.vue'
     export default {
         name: 'App',
         components:{
-            TheBookingPage,
-            TheSideBar
+            TheBookingPageVue,
+            TheSidebarVue
         },
     }
 </script>
 
 <style scoped>
+
+
+
     h2{
         color: rgb(239, 124, 0);
         text-align: left;
@@ -62,6 +65,12 @@
 
     #sidebar{
         float: left;
+        position: absolute;
     }
+
+    #main {
+    float: right;
+    position: absolute;
+}
 }
 </style>

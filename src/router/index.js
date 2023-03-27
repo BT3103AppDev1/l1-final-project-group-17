@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/components/TheLoginPage.vue'
-import Home from '@/Views/Home.vue'
-import Booking from '@/Views/Booking.vue'
-import Occupancy from '@/Views/Occupancy.vue'
-import Notifications from '@/Views/Notifications.vue'
+import Home from '@/views/Home.vue'
+import Booking from '@/views/Booking.vue'
+import Occupancy from '@/views/Occupancy.vue'
+import Notifications from '@/views/Notifications.vue'
 
 const routes = [
     {

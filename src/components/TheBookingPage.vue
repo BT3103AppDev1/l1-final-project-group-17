@@ -216,7 +216,7 @@
                 try{
                     // Save to db (bookings)
                     if (seatbooked) {
-                        alert("Seat is already booked!")
+                        alert("Seat is already booked! Please choose another seat")
                         return
                     }
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))

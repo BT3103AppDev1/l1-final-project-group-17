@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Booking from '@/views/Booking.vue'
 import Occupancy from '@/views/Occupancy.vue'
 import Notifications from '@/views/Notifications.vue'
+import Logout from '@/components/TheLogoutPage.vue'
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/Notifications',
         name: 'Notifications',
         component: Notifications
+    },
+    {
+        path: '/Logout',
+        name: 'Logout',
+        component: Logout
     }
 ]
 

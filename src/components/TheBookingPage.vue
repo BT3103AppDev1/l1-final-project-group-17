@@ -80,7 +80,7 @@
 
     <div class = "buttons">
         <div class = "checkseats">
-            <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
+            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Check Available Seats </button>
         </div>
 
         <div class = "back">
@@ -150,7 +150,7 @@
                 }
             },
 
-            async checkseats() {
+            async bookseats() {
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
@@ -159,7 +159,7 @@
                 let time2 = document.getElementById("time2").value
                 let seat = document.getElementById("seat").value
 
-                console.log(seat)
+                // Check if fields are filled in properly
 
                 if (library == "select" || level == "select" || time1 == "select" || time2 == "select" || bookingdate == "" || seat == "select") {
                     alert("Some fields are not selected!")
@@ -169,6 +169,26 @@
                 if (time1 >= time2) {
                     alert("End time must be later than start time! (End time is " + time2 + ", it should be later than " + time1+ ")")
                     return
+                } 
+
+                //Check if seat is valid
+
+                if (library == "clb" && level == "level5") {
+                    if (seat > "332") {
+                        alert("Invalid Seat")
+                    }
+                }
+
+                if (library == "clb" && level == "level6") {
+                    if (seat > "301") {
+                        alert("Invalid Seat")
+                    }
+                }
+
+                if (library == "clb" && level == "level6(Chinese Library)") {
+                    if (seat > "120") {
+                        alert("Invalid Seat")
+                    }
                 }
        
 

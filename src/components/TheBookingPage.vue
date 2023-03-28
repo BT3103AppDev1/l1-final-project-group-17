@@ -93,7 +93,8 @@
 <script>
     import firebaseApp from'../firebase.js';
     import { getFirestore } from "firebase/firestore";
-    import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+    import { collection, getDocs, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore";
+    import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
 
@@ -105,6 +106,16 @@
                 clblevel5: false,
                 clbchinese: false
             }
+        },
+        mounted(){
+            const auth = getAuth();
+            
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    this.user = user
+                    this.useremail = user.email
+                }
+            })
         },
 
         methods: {
@@ -155,8 +166,8 @@
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
                 //2023-03-27 -> format of bookingdate
-                let time1 = document.getElementById("time1").value
-                let time2 = document.getElementById("time2").value
+                let time1 = parseInt(document.getElementById("time1").value)
+                let time2 = parseInt(document.getElementById("time2").value)
                 let seat = document.getElementById("seat").value
 
                 // Check if fields are filled in properly
@@ -190,20 +201,60 @@
                         alert("Invalid Seat")
                     }
                 }
-       
 
+                console.log(this.useremail)
+       
+                //ToDo: Check bookings -> date -> library -> level -> seat,
+                //if the seat is already booked
+
+
+
+                // Save to db (bookings)
+                try{
+                    console.log(db)
+                    console.log(String(this.useremail))
+
+                    const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
+                    
+                    let data = {}
+
+                    let timeadd = time1
+                    let timeaddstr = ""
+                    while (timeadd != time2) {
+                        if (timeadd < 1000) {
+                            timeaddstr = "0" + String(timeadd)
+                        } else {
+                            timeaddstr = String(timeadd)
+                        }
+                        data[timeaddstr] = this.useremail
+                        timeadd += 100
+                    }
+
+                    console.log(data)
+
+                    await setDoc(docRefBookings, data);
+                }
+                catch(error) {
+                    console.error("Error adding document: ", error);
+                }
+                
+
+                // Save to db (user) -- Not working yet
                 // try{
-                //     const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
-                //         Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
-                //         Time : this.time, Duration : this.duration
-                //     })
-                //     console.log(docRef)
-                //     document.getElementById('myform').reset();
-                //     this.$emit("added")  
+                // console.log(db)
+                // console.log(String(this.useremail))
+
+                // let docRef = await addDoc(doc(db, String(this.useremail), "booking"),{
+                //     date: bookingdate, level: level, library: library, seat: seat, time_end: time2, time_start: time1
+                // })
+                // console.log(docRef)
+                // document.getElementById('myform').reset();
+                // // this.$emit("added")  
                 // }
                 // catch(error) {
                 //     console.error("Error adding document: ", error);
                 // }
+
 
             },
 

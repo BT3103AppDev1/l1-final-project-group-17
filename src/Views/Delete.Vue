@@ -10,7 +10,7 @@
 
 <script>
     import TheDeletePage from '@/components/TheDeletePage.vue'
-    import TheSideBar from '@/components/TheSideBar.vue'
+    import TheSideBar from '@/components/sidebar/TheSideBar.vue'
     export default {
         name: 'App',
         components:{

@@ -210,12 +210,36 @@
                 //ToDo: Check bookings -> date -> library -> level -> seat,
                 //if the seat is already booked
                 let seatbooked = false
-
-                try{
+                try {
                     // let seatbookinghist = await getDoc(docRefBookings)
                     // if (seatbookinghist.exists()) -> save to an array (use a query?)
                     // iterate through the array and if the particular time that the user want to book is inside the array, let seatbooked = true
+                    const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
+                    console.log("ASD")
+                    let seatbookings = await getDoc(docRefBookings)
 
+                    if (seatbookings.exists()) {
+                        let timeadd = time1Int
+                        let timestocheck = []
+
+                        while (timeadd != time2Int) {
+                            if (timeadd < 1000) {
+                                timestocheck.push("0" + String(timeadd))
+                            } else {
+                                timestocheck.push(String(timeadd))
+                            }
+                            timeadd += 100
+                        }
+                    }
+
+                    console.log("seats: " + seatbookings.data()["0900"])
+
+
+                } catch(error) {
+                    console.error(error);
+                }
+
+                try{
                     // Save to db (bookings)
                     if (seatbooked) {
                         alert("Seat is already booked! Please choose another seat")

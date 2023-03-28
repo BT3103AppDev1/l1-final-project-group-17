@@ -80,7 +80,7 @@
 
     <div class = "buttons">
         <div class = "checkseats">
-            <button id = "checkseatsbutton" type = "button" v-on:click="checkseats">Check Available Seats </button>
+            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Check Available Seats </button>
         </div>
 
         <div class = "back">
@@ -88,13 +88,13 @@
         </div>
     </div>
 
-
 </template>
 
 <script>
     import firebaseApp from'../firebase.js';
     import { getFirestore } from "firebase/firestore";
-    import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+    import { collection, getDoc, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore"; //import { query, where, getDocs } from "firebase/firestore"
+    import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
 
@@ -106,6 +106,16 @@
                 clblevel5: false,
                 clbchinese: false
             }
+        },
+        mounted(){
+            const auth = getAuth();
+            
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    this.user = user
+                    this.useremail = user.email
+                }
+            })
         },
 
         methods: {
@@ -151,7 +161,7 @@
                 }
             },
 
-            async checkseats() {
+            async bookseats() {
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
@@ -160,7 +170,10 @@
                 let time2 = document.getElementById("time2").value
                 let seat = document.getElementById("seat").value
 
-                console.log(seat)
+                let time1Int = parseInt(time1)
+                let time2Int = parseInt(time2)
+
+                // Check if fields are filled in properly
 
                 if (library == "select" || level == "select" || time1 == "select" || time2 == "select" || bookingdate == "" || seat == "select") {
                     alert("Some fields are not selected!")
@@ -170,21 +183,135 @@
                 if (time1 >= time2) {
                     alert("End time must be later than start time! (End time is " + time2 + ", it should be later than " + time1+ ")")
                     return
-                }
-       
+                } 
 
+                //Check if seat is valid
+
+                if (library == "clb" && level == "level5") {
+                    if (seat > "332") {
+                        alert("Invalid Seat")
+                    }
+                }
+
+                if (library == "clb" && level == "level6") {
+                    if (seat > "301") {
+                        alert("Invalid Seat")
+                    }
+                }
+
+                if (library == "clb" && level == "level6(Chinese Library)") {
+                    if (seat > "120") {
+                        alert("Invalid Seat")
+                    }
+                }
+
+                console.log(this.useremail)
+       
+                //ToDo: Check bookings -> date -> library -> level -> seat,
+                //if the seat is already booked
+                let seatbooked = false
+                try {
+                    // let seatbookinghist = await getDoc(docRefBookings)
+                    // if (seatbookinghist.exists()) -> save to an array (use a query?)
+                    // iterate through the array and if the particular time that the user want to book is inside the array, let seatbooked = true
+                    const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
+                    console.log("ASD")
+                    let seatbookings = await getDoc(docRefBookings)
+
+                    if (seatbookings.exists()) {
+                        let timeadd = time1Int
+                        let timestocheck = []
+
+                        while (timeadd != time2Int) {
+                            if (timeadd < 1000) {
+                                timestocheck.push("0" + String(timeadd))
+                            } else {
+                                timestocheck.push(String(timeadd))
+                            }
+                            timeadd += 100
+                        }
+                    }
+
+                    console.log("seats: " + seatbookings.data()["0900"])
+
+
+                } catch(error) {
+                    console.error(error);
+                }
+
+                try{
+                    // Save to db (bookings)
+                    if (seatbooked) {
+                        alert("Seat is already booked! Please choose another seat")
+                        return
+                    }
+                    const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
+                    const docRefUser = await doc(db, "users", String(this.useremail))
+                    
+                    let data = {}
+
+                    let timeadd = time1Int
+                    let timeaddstr = ""
+                    while (timeadd != time2Int) {
+                        if (timeadd < 1000) {
+                            timeaddstr = "0" + String(timeadd)
+                        } else {
+                            timeaddstr = String(timeadd)
+                        }
+                        data[timeaddstr] = this.useremail
+                        timeadd += 100
+                    }
+
+                    console.log(data)
+
+                    await setDoc(docRefBookings, data);
+
+                    // Add to user
+                    let userbookings = await getDoc(docRefUser)
+                    let userbooking = 
+                        {date: bookingdate,
+                        library: library,
+                        level: level,
+                        seat: seat,
+                        time_start: time1,
+                        time_end: time2}
+
+                    console.log(userbooking)
+
+                    if (userbookings.exists()) {
+                        let userdata = userbookings.data()["bookings"]
+                        userdata.push(userbooking)
+                        await setDoc(docRefUser,
+                            {bookings: userdata}
+                        )
+                    } else {
+                        await setDoc(docRefUser,
+                            {bookings: [userbooking]}
+                        )
+                    }
+
+                }
+                catch(error) {
+                    console.error("Error adding document: ", error);
+                }
+                
+
+                // Save to db (user) -- Not working yet
                 // try{
-                //     const docRef = await setDoc(doc(db, String(this.useremail), this.library),{
-                //         Library: this.library , Level : this.level, Bookingdate : this.bookingdate, 
-                //         Time : this.time, Duration : this.duration
-                //     })
-                //     console.log(docRef)
-                //     document.getElementById('myform').reset();
-                //     this.$emit("added")  
+                // console.log(db)
+                // console.log(String(this.useremail))
+
+                // let docRef = await addDoc(doc(db, String(this.useremail), "booking"),{
+                //     date: bookingdate, level: level, library: library, seat: seat, time_end: time2, time_start: time1
+                // })
+                // console.log(docRef)
+                // document.getElementById('myform').reset();
+                // // this.$emit("added")  
                 // }
                 // catch(error) {
                 //     console.error("Error adding document: ", error);
                 // }
+
 
             },
 

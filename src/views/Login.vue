@@ -1,21 +1,15 @@
 <template>
     <div id = "main">
-        <TheHomepageVue />
-    </div>
-
-    <div id = "sidebar">
-        <TheSidebarVue />
+        <TheLoginPageVue />
     </div>
 </template>
 
 <script>
-    import TheHomepageVue from '@/components/TheHomepage.vue'
-    import TheSidebarVue from '@/components/TheSidebar.vue';
+    import TheLoginPageVue from '@/components/TheLoginPage.vue'
         export default {
           name: 'App',
           components:{
-              TheHomepageVue, 
-              TheSidebarVue
+              TheLoginPageVue
           },
         }
 </script>
@@ -45,10 +39,6 @@ header {
         display: flex;
         place-items: flex-start;
         flex-wrap: wrap;
-    }
-
-    html * {
-        font-family: Montserrat;
     }
 }
 </style>

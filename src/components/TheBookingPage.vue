@@ -93,7 +93,7 @@
 <script>
     import firebaseApp from'../firebase.js';
     import { getFirestore } from "firebase/firestore";
-    import { collection, getDocs, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore";
+    import { collection, getDoc, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore";
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
@@ -166,9 +166,12 @@
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
                 //2023-03-27 -> format of bookingdate
-                let time1 = parseInt(document.getElementById("time1").value)
-                let time2 = parseInt(document.getElementById("time2").value)
+                let time1 = document.getElementById("time1").value
+                let time2 = document.getElementById("time2").value
                 let seat = document.getElementById("seat").value
+
+                let time1Int = parseInt(time1)
+                let time2Int = parseInt(time2)
 
                 // Check if fields are filled in properly
 
@@ -206,21 +209,24 @@
        
                 //ToDo: Check bookings -> date -> library -> level -> seat,
                 //if the seat is already booked
+                let seatbooked = false
 
 
 
-                // Save to db (bookings)
                 try{
-                    console.log(db)
-                    console.log(String(this.useremail))
-
+                    // Save to db (bookings)
+                    if (seatbooked) {
+                        alert("Seat is already booked!")
+                        return
+                    }
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
+                    const docRefUser = await doc(db, "users", String(this.useremail))
                     
                     let data = {}
 
-                    let timeadd = time1
+                    let timeadd = time1Int
                     let timeaddstr = ""
-                    while (timeadd != time2) {
+                    while (timeadd != time2Int) {
                         if (timeadd < 1000) {
                             timeaddstr = "0" + String(timeadd)
                         } else {
@@ -233,6 +239,31 @@
                     console.log(data)
 
                     await setDoc(docRefBookings, data);
+
+                    // Add to user
+                    let userbookings = await getDoc(docRefUser)
+                    let userbooking = 
+                        {date: bookingdate,
+                        library: library,
+                        level: level,
+                        seat: seat,
+                        time_start: time1,
+                        time_end: time2}
+
+                    console.log(userbooking)
+
+                    if (userbookings.exists()) {
+                        let userdata = userbookings.data()["bookings"]
+                        userdata.push(userbooking)
+                        await setDoc(docRefUser,
+                            {bookings: userdata}
+                        )
+                    } else {
+                        await setDoc(docRefUser,
+                            {bookings: [userbooking]}
+                        )
+                    }
+
                 }
                 catch(error) {
                     console.error("Error adding document: ", error);

@@ -93,7 +93,7 @@
 <script>
     import firebaseApp from'../firebase.js';
     import { getFirestore } from "firebase/firestore";
-    import { collection, getDoc, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore";
+    import { collection, getDoc, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore"; //import { query, where, getDocs } from "firebase/firestore"
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
@@ -211,9 +211,11 @@
                 //if the seat is already booked
                 let seatbooked = false
 
-
-
                 try{
+                    // let seatbookinghist = await getDoc(docRefBookings)
+                    // if (seatbookinghist.exists()) -> save to an array (use a query?)
+                    // iterate through the array and if the particular time that the user want to book is inside the array, let seatbooked = true
+
                     // Save to db (bookings)
                     if (seatbooked) {
                         alert("Seat is already booked! Please choose another seat")

@@ -1,7 +1,7 @@
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { collapsed } from './state'
+import { collapsed, toggleSidebar } from './state'
 export default {
   props: {
     to: { type: String, required: true },

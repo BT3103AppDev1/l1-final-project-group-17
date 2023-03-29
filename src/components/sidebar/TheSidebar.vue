@@ -27,13 +27,13 @@ export default {
     <button @click="toggleSidebar"><span class = "material-icons">menu_open</span></button></span>
     <br><br>
     
-    <SidebarLink to="/Home">Home</SidebarLink>
+    <SidebarLink to="/Home" @click="toggleSidebar">Home</SidebarLink>
 
-    <SidebarLink to="/Booking">Booking</SidebarLink>
+    <SidebarLink to="/Booking" @click="toggleSidebar">Booking</SidebarLink>
 
-    <SidebarLink to="/Occupancy">Occupancy</SidebarLink>
+    <SidebarLink to="/Occupancy" @click="toggleSidebar">Occupancy</SidebarLink>
 
-    <SidebarLink to="/Notifications">Notifications</SidebarLink>
+    <SidebarLink to="/Notifications" @click="toggleSidebar">Notifications</SidebarLink>
 
     <br><br>
     

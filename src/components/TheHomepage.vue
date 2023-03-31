@@ -15,6 +15,18 @@
             <th>Time End</th>
             <th>Options</th>
         </tr>
+        <tr v-for="(row, index) in tableRows" :key="row.library">
+                <td>{{ index + 1 }}</td>
+                <td>{{ row.library }}</td>
+                <td>{{ row.level }}</td>
+                <td>{{ row.seat }}</td>
+                <td>{{ row.date }}</td>
+                <td>{{ row.time_start }}</td>
+                <td>{{ row.time_end }}</td>
+                <td>
+                    <button @click="deleteBooking(row.library, useremail)" class="bwt">Delete</button>
+                </td>
+            </tr>
     </table><br><br>
 
     <div id = "buttons">
@@ -27,11 +39,81 @@
 
 
 <script>
+    import firebaseApp from '../firebase.js';
+    import { getFirestore } from 'firebase/firestore';
+    import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+    import {getAuth, onAuthStateChanged} from "firebase/auth";
+
+    const db = getFirestore(firebaseApp);
+
+
     export default {
+        data () {
+            return {
+                useremail : '',
+                tableRows : [],
+            };
+        },
+
+        async mounted(){
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+            const auth = getAuth();
+                
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    this.user = user
+                    this.useremail = user.email
+                }
+            })
+            while (!this.useremail) {
+                console.log(this.useremail)
+                await delay(100);  //delay if no useremail yet
+            }
+            await this.fetchAndUpdateData(this.useremail);
+        },
+
+
         methods: {
             goBooking() {
                 this.$router.push({ name: 'Booking' })
-            }
+            },
+
+            async fetchAndUpdateData(useremail) {
+            let allDocuments = await getDocs(collection(db, String(useremail)));
+
+            // Promise.all to ensure all async operations are over.
+            // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
+
+            this.tableRows = await Promise.all(
+                allDocuments.docs.map(async (doc) => {
+                    let documentData = doc.data();
+                    let library = documentData.library;
+                    let level = documentData.level;
+                    let seat = documentData.seat;
+                    let date = documentData.date;
+                    let time_start = documentData.time_start;
+                    let time_end = documentData.time_end;
+                    
+                    
+                    return {
+                        library,
+                        level,
+                        seat,
+                        date,
+                        time_start,
+                        time_end,
+                    };
+                }),
+            );
+        },
+        async deleteBooking(library, user) {
+            alert("You are going to delete: " + library + " " + level + " " + seat);
+            await deleteDoc(doc(db, user, library));
+            console.log("Booking successfully deleted!");
+            
+            // Refresh table data and total profit
+            await this.fetchAndUpdateData(this.useremail);
+        },
         }
     }
 </script>

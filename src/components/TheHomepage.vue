@@ -36,7 +36,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     body {
         background-color: #595959 !important;
     }
@@ -52,19 +52,16 @@
         margin-inline-end: 0px;
         font-weight: bold;
     }
-    #table {
-        background-color: #595959;
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
     }
 
     th,td {
-        border: 1px solid white;
-        font-family: arial, sans-serif;
-        color: white;
-        text-align: center;
-        padding: 8px;
+    border: 1px solid slategrey;
+    text-align: center;
+    padding: 8px;
     }
 
     /**style big button */

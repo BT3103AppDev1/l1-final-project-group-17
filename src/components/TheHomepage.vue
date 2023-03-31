@@ -31,6 +31,10 @@
         methods: {
             goBooking() {
                 this.$router.push({ name: 'Booking' })
+            },
+
+            goOccupancy() {
+                this.$router.push({name: 'Occupancy' })
             }
         }
     }

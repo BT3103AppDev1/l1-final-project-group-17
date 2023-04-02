@@ -1,4 +1,5 @@
 <template>
+    <h1>View Occupancy</h1>
     <div id = "main">
         <div id = "container">
             <div id = "form">

@@ -48,7 +48,8 @@ const routes = [
     {
         path: '/Timetable',
         name: 'Timetable',
-        component: Timetable
+        props: true,
+        component: Timetable,
     }
 ]
 

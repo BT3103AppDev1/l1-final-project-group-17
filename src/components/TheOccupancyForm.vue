@@ -66,7 +66,10 @@
                     return
                 }
             
-                this.$router.push({ name: 'Timetable' })
+                this.$router.push({
+                    name: "Timetable",
+                    query: { library: library, level: level, bookingdate: bookingdate }
+                });
             }
         }
     }

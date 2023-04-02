@@ -54,7 +54,7 @@
             },
 
             viewavailablility(){
-
+                this.$router.push({ name: 'Timetable' })
             }
         }
     }

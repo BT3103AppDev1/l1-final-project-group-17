@@ -6,6 +6,7 @@ import Occupancy from '@/views/Occupancy.vue'
 import Notifications from '@/views/Notifications.vue'
 import Logout from '@/components/TheLogoutPage.vue'
 import Delete from '@/views/Delete.vue'
+import Timetable from '@/views/Timetable.vue'
 
 const routes = [
     {
@@ -43,6 +44,11 @@ const routes = [
         path: '/Delete',
         name: 'Delete',
         component: Delete
+    },
+    {
+        path: '/Timetable',
+        name: 'Timetable',
+        component: Timetable
     }
 ]
 

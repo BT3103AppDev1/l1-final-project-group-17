@@ -5,7 +5,7 @@
                 <label for = "library1">Library</label> <br>
                 <select name = "library1" id = "library1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
-                    <option value = "clb">CLB</option>
+                    <option value = "clb">Central Library</option>
                 </select>
 
                 <br>

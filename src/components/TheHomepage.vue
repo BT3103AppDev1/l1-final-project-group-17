@@ -68,34 +68,13 @@
     padding: 8px;
     }
 
-    /**style big button */
-    #im_here, #view_occupancy, #new_booking {
-        background-color:#ef7c00;
-        font: 700;
-        font-weight: bold;
-        font-size: 1em;
-        color: white;
-        border-color: white;
-        border-radius: 30px;
-        border-radius: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-
-    #im_here:hover, #view_occupancy:hover, #new_booking:hover {
-        transition: 0.3s;
-        background-color:#003d7c;
-    }
-
     #buttons {
         display: flex;
         width: 50%;
         float: right;
     }
 
-    button {
+    #im_here, #view_occupancy, #new_booking {
         background-color:#ef7c00;
         font: 700;
         font-weight: bold;
@@ -109,7 +88,11 @@
         padding-bottom: 10px;
         margin-left: 10px;
         margin-right: 10px;
-        float: left
+    }
+
+    #im_here:hover, #view_occupancy:hover, #new_booking:hover {
+        transition: 0.3s;
+        background-color:#f3b97b;
     }
 
 

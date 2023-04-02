@@ -84,7 +84,7 @@
 
     #viewavailablilitybutton:hover {
         transition: 0.3s;
-        background-color:#eb9e4c;
+        background-color:#f3b97b;
     }
 
     #backbutton {
@@ -105,6 +105,6 @@
 
     #backbutton:hover {
         transition: 0.3s;
-        background-color:#2775c4;
+        background-color:#5c96cf;
     }
 </style>

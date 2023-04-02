@@ -1,4 +1,5 @@
 <template >
+    <h1> New Booking </h1>
     <div class = "container">
         <form id = "myform">
             <div class = "formli">

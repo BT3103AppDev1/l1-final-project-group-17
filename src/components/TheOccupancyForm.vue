@@ -54,6 +54,18 @@
             },
 
             viewavailablility(){
+                let library = document.getElementById("library1").value
+                let level = document.getElementById("level1").value
+                let bookingdate = document.getElementById("bookingdate1").value
+                //2023-03-27 -> format of bookingdate
+
+                // Check if fields are filled in properly
+
+                if (library == "select" || level == "select" || bookingdate == "") {
+                    alert("Some fields are not selected!")
+                    return
+                }
+            
                 this.$router.push({ name: 'Timetable' })
             }
         }

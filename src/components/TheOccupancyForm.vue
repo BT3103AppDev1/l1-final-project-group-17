@@ -5,7 +5,7 @@
                 <label for = "library1">Library</label> <br>
                 <select name = "library1" id = "library1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
-                    <option value = "clb">Central Library</option>
+                    <option value = "Central Library">Central Library</option>
                 </select>
 
                 <br>
@@ -13,9 +13,9 @@
                 <label for = "level1">Level</label> <br>
                 <select name = "level1" id = "level1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
-                    <option value = "level5">Level 5</option>
-                    <option value = "level6">Level 6</option>
-                    <option value = "level6(Chinese Library)">Level 6 (Chinese Library)</option>
+                    <option value = "Level 5">Level 5</option>
+                    <option value = "Level 6">Level 6</option>
+                    <option value = "Level 6 (Chinese Library)">Level 6 (Chinese Library)</option>
                 </select>
 
                 <br>

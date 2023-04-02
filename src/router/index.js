@@ -6,6 +6,7 @@ import Delete from '@/views/Delete.vue'
 import Occupancy from '@/views/Occupancy.vue'
 import Notifications from '@/views/Notifications.vue'
 import Logout from '@/components/TheLogoutPage.vue'
+import Delete from '@/views/Delete.vue'
 
 const routes = [
     {
@@ -25,6 +26,21 @@ const routes = [
         component: Booking
     }
     ,
+    {
+        path: '/Occupancy',
+        name: 'Occupancy',
+        component: Occupancy
+    },
+    {
+        path: '/Notifications',
+        name: 'Notifications',
+        component: Notifications
+    },
+    {
+        path: '/Logout',
+        name: 'Logout',
+        component: Logout
+    },
     {
         path: '/Delete',
         name: 'Delete',

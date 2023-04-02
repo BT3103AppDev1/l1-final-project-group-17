@@ -11,7 +11,7 @@
 
 <script>
     import TheOccupancyPageVue from '@/components/TheOccupancyPage.vue'
-    import TheSidebarVue from '@/components/TheSidebar.vue'
+    import TheSidebarVue from '@/components/sidebar/TheSidebar.vue'
         export default {
           name: 'App',
           components:{

@@ -9,7 +9,7 @@
 
 <script>
     import TheBookingPageVue from '@/components/TheBookingPage.vue'
-    import TheSidebarVue from '@/components/TheSidebar.vue'
+    import TheSidebarVue from '@/components/sidebar/TheSidebar.vue'
     export default {
         name: 'App',
         components:{

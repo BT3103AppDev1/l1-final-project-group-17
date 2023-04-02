@@ -187,25 +187,34 @@
 
                 //Check if seat is valid
 
-                if (library == "clb" && level == "level5") {
-                    if (seat > "332") {
-                        alert("Invalid Seat")
-                    }
-                }
+                
+                try {
+                    let seatint = parseInt(seat)
 
-                if (library == "clb" && level == "level6") {
-                    if (seat > "301") {
-                        alert("Invalid Seat")
+                    if (library == "clb" && level == "level5") {
+                        if (seatint > 332 || seatint < 1) {
+                            alert("Invalid Seat")
+                            return
+                        }
                     }
-                }
 
-                if (library == "clb" && level == "level6(Chinese Library)") {
-                    if (seat > "120") {
-                        alert("Invalid Seat")
+                    if (library == "clb" && level == "level6") {
+                        if (seatint > 301 || seatint < 1) {
+                            alert("Invalid Seat")
+                            return
+                        }
                     }
-                }
 
-                console.log(this.useremail)
+                    if (library == "clb" && level == "level6(Chinese Library)") {
+                        if (seatint > 120 || seatint < 1) {
+                            alert("Invalid Seat")
+                            return
+                        }
+                    }
+                } catch(error) {
+                    alert("Invalid Seat")
+                    return
+                }
        
                 //ToDo: Check bookings -> date -> library -> level -> seat,
                 //if the seat is already booked
@@ -219,6 +228,7 @@
                     let seatbookings = await getDoc(docRefBookings)
 
                     if (seatbookings.exists()) {
+                        console.log("exists")
                         let timeadd = time1Int
                         let timestocheck = []
 
@@ -230,11 +240,14 @@
                             }
                             timeadd += 100
                         }
+
+                        for (let i = 0; i < timestocheck.length; i++) {
+                            if(seatbookings.data()[timestocheck[i]]){ //seat is taken
+                                seatbooked = true
+                                break
+                            } //else not taken
+                        }
                     }
-
-                    console.log("seats: " + seatbookings.data()["0900"])
-
-
                 } catch(error) {
                     console.error(error);
                 }
@@ -242,7 +255,7 @@
                 try{
                     // Save to db (bookings)
                     if (seatbooked) {
-                        alert("Seat is already booked! Please choose another seat")
+                        alert("Seat is already booked! Please choose another seat or time!")
                         return
                     }
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))

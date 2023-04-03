@@ -13,20 +13,12 @@
             <th>Date</th>
             <th>Time Start</th>
             <th>Time End</th>
-            <th>Options</th>
+            
         </tr>
-        <tr v-for="(row, index) in tableRows" :key="row.library">
-                <td>{{ index + 1 }}</td>
-                <td>{{ row.library }}</td>
-                <td>{{ row.level }}</td>
-                <td>{{ row.seat }}</td>
-                <td>{{ row.date }}</td>
-                <td>{{ row.time_start }}</td>
-                <td>{{ row.time_end }}</td>
-                <td>
-                    <button @click="deleteBooking(row.library, useremail)" class="bwt">Delete</button>
-                </td>
-            </tr>
+        
+        <tbody id = "tbody1">
+
+        </tbody>
     </table><br><br>
 
     <div id = "buttons">
@@ -45,6 +37,52 @@
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
+
+    function SelectAllData() {
+                db.collection('users').ref('test@test.com').ref('bookings').once('value', 
+                function(AllRecords){
+                    AllRecords.forEach(
+                        function(CurrentRecord){
+                            var location = CurrentRecord.val().library;
+                            var level = CurrentRecord.val().level;
+                            var seat = CurrentRecord.val().seat;
+                            var date = CurrentRecord.val().date;
+                            var time_start = CurrentRecord.val().time_start;
+                            var time_end = CurrentRecord.val().time_end;
+                            AddItemsToTable(location, level, seat, date, time_start, time_end);
+
+                        }
+                    )
+
+                });
+
+            }
+    window.onload = SelectAllData;
+
+
+
+    function AddItemsToTable() {
+        var tbody = document.getElementById('tbody1');
+        var trow = document.createElement('tr');
+        var td1 = document.createElement('td');
+        var td2 = document.createElement('td');
+        var td3 = document.createElement('td');
+        var td4 = document.createElement('td');
+        var td5 = document.createElement('td');
+        var td6 = document.createElement('td');
+
+        td1.innerHTML = location;
+        td2.innerHTML = level;
+        td3.innerHTML = seat;
+        td4.innerHTML = date;
+        td5.innerHTML = time_start;
+        td6.innerHTML = time_end;
+        
+
+        trow.appendChild(td1); trow.appendChild(td2); trow.appendChild(td3); trow.appendChild(td4); trow.appendChild(td5); trow.appendChild(td6); 
+        tbody.appendChild(trow);
+
+    }
 
 
     export default {
@@ -77,6 +115,8 @@
             goBooking() {
                 this.$router.push({ name: 'Booking' })
             },
+
+            
 
             async fetchAndUpdateData(useremail) {
             let allDocuments = await getDocs(collection(db, String(useremail)));

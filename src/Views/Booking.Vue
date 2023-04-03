@@ -19,15 +19,7 @@
     }
 </script>
 
-<style scoped>
-
-
-
-    h2{
-        color: rgb(239, 124, 0);
-        text-align: left;
-    }
-        
+<style scoped>    
     header {
         line-height: 1.5;
     }

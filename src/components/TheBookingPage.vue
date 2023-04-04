@@ -81,7 +81,7 @@
 
     <div class = "buttons">
         <div class = "checkseats">
-            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Check Available Seats </button>
+            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Book Seat</button>
         </div>
 
         <div class = "back">

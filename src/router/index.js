@@ -49,9 +49,10 @@ const routes = [
         props: true
     },
     {
-        path: '/Edit',
+        path: '/Edit/:booking',
         name: 'Edit',
-        component: Edit
+        component: Edit,
+        props: true
     }
 ]
 

@@ -34,7 +34,8 @@
 <script>
     import firebaseApp from'../firebase.js';
     import { deleteField, getFirestore, updateDoc } from "firebase/firestore";
-    import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+    import { collection, getDocs, doc, deleteDoc, FieldValue, arrayRemove } from "firebase/firestore";
+    import {getAuth, onAuthStateChanged} from "firebase/auth";
     const db = getFirestore(firebaseApp);
     
 
@@ -43,6 +44,16 @@
             return {
                 booking : JSON.parse(this.$route.params.booking)
             }
+        },        
+        mounted(){
+            const auth = getAuth();
+            
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    this.user = user
+                    this.useremail = user.email
+                }
+            })
         },
         methods: {
             goHome() {
@@ -88,8 +99,20 @@
                         [time]: deleteField()
                     });
                 });
+
+                let path2 = "users/" + String(this.useremail)
+                console.log(path2)
+
+                const bookingRef2 = doc(db, path2);
+                console.log(this.booking)
+                updateDoc(bookingRef2, {
+                    "bookings": arrayRemove(this.booking)
+                });
+
+
                 alert("your booking has been deleted");
                 this.$router.push({ name: 'Booking' })
+
 
                 /*
                 userbooking : 

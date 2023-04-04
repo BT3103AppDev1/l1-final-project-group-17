@@ -10,13 +10,11 @@
 <script>
     import TheBookingPageVue from '@/components/TheBookingPage.vue'
     import TheSidebarVue from '@/components/sidebar/TheSidebar.vue'
-    import TheDeletePage from '@/components/TheDeletePage.vue'
     export default {
         name: 'App',
         components:{
             TheBookingPageVue,
             TheSidebarVue,
-            TheDeletePage
         },
     }
 </script>

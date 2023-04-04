@@ -22,21 +22,43 @@
 
         <button id = "new_booking" type = "button" v-on:click="goBooking">New Booking </button>
     </div>
+
+    <br><br>
+
+    <div id = "deleteButtons">
+        <button id = "editButton" type = "button" v-on:click="goEdit">Edit </button><br><br>
+        <button id = "deleteButton" type = "button" v-on:click="goDelete">Delete</button>
+    </div>
     
 </template>
 
 
 <script>
+
+    import TheDeletePage from './TheDeletePage.vue'
+
     export default {
+
+        components: {TheDeletePage},
+        data() {
+            return {
+                testMessage: "TEST234"
+            }
+        },
         methods: {
             goBooking() {
                 this.$router.push({ name: 'Booking' })
             },
-
             goOccupancy() {
                 this.$router.push({name: 'Occupancy' })
+            },            
+            goDelete() {
+                this.$router.push({ name: 'Delete' })
+            },
+            goEdit() {
+                this.$router.push({name: 'Edit' })
             }
-        }
+        },
     }
 </script>
 

@@ -1,20 +1,20 @@
 <template>
     <div id = "main">
         <div id = "head">
-            <TheSideBar/>
-            <h1>Delete This Booking?</h1>
+            <TheSideBar />
+            <h1>Edit This Booking?</h1>
         </div>
-        <TheDeletePage/>
+        <TheEditPage/>
     </div>
 </template>
 
 <script>
-    import TheDeletePage from '@/components/TheDeletePage.vue'
+    import TheEditPage from '@/components/TheEditPage.vue'
     import TheSideBar from '@/components/sidebar/TheSideBar.vue'
     export default {
         name: 'App',
         components:{
-            TheDeletePage,
+            TheEditPage,
             TheSideBar
         },
     }

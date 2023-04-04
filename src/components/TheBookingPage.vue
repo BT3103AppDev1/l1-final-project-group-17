@@ -167,6 +167,23 @@
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
                 bookingdate = new Date(bookingdate).toLocaleDateString().split('T')[0];
+
+                let bookingdatearr = bookingdate.split("/")
+                let day = bookingdatearr[0]
+                let month = bookingdatearr[1]
+                let year = bookingdatearr[2]
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                bookingdate = year + "-" + month + "-" + day
+
+                
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value
@@ -256,6 +273,8 @@
                         alert("Seat is already booked! Please choose another seat or time!")
                         return
                     }
+
+                    alert(bookingdate)
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     const docRefUser = await doc(db, "users", String(this.useremail))
                     

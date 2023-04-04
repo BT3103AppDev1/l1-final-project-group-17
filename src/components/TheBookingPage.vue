@@ -1,11 +1,12 @@
 <template >
+    <h1> New Booking </h1>
     <div class = "container">
         <form id = "myform">
             <div class = "formli">
                 <label for = "library1">Library</label> <br>
                 <select name = "library1" id = "library1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
-                    <option value = "clb">CLB</option>
+                    <option value = "clb">Central Library</option>
                 </select>
 
                 <br>

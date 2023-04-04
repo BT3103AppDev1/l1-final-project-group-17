@@ -7,24 +7,39 @@
 
     <table id = "table" class = "auto-index">
         <tr>
+            <th>Booking No.</th>
             <th>Location</th>
             <th>Level</th>
             <th>Seat Number</th>
             <th>Date</th>
             <th>Time Start</th>
             <th>Time End</th>
+            <th>Options</th>
             
         </tr>
-        
-        <tbody id = "tbody1">
 
-        </tbody>
+        <tr v-for="(row, index) in tableRows" :key="row.library">
+                <td>{{ index + 1 }}</td>
+                <td>{{ row.library }}</td>
+                <td>{{ row.level }}</td>
+                <td>{{ row.seat }}</td>
+                <td>{{ row.date }}</td>
+                <td>{{ row.time_start }}</td>
+                <td>{{ row.time_end }}</td>
+                <td>
+                    <button @click="deleteBooking(row.library, useremail)" class="bwt">Delete</button>
+                </td>
+            </tr>
+        
+        
     </table><br><br>
 
     <div id = "buttons">
         <button id = "view_occupancy" type = "button" v-on:click="goOccupancy">View Occupancy </button><br><br>
 
-        <button id = "new_booking" type = "button" v-on:click="goBooking">New Booking </button>
+        <button id = "new_booking" type = "button" v-on:click="goBooking">New Booking </button><br><br>
+
+        <button id = "temp_update" type = "button" v-on:click="fetchAndUpdateData">Temp Update </button>
     </div>
     
 </template>
@@ -37,52 +52,6 @@
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
-
-    function SelectAllData() {
-                db.collection('users').ref('test@test.com').ref('bookings').once('value', 
-                function(AllRecords){
-                    AllRecords.forEach(
-                        function(CurrentRecord){
-                            var location = CurrentRecord.val().library;
-                            var level = CurrentRecord.val().level;
-                            var seat = CurrentRecord.val().seat;
-                            var date = CurrentRecord.val().date;
-                            var time_start = CurrentRecord.val().time_start;
-                            var time_end = CurrentRecord.val().time_end;
-                            AddItemsToTable(location, level, seat, date, time_start, time_end);
-
-                        }
-                    )
-
-                });
-
-            }
-    window.onload = SelectAllData;
-
-
-
-    function AddItemsToTable() {
-        var tbody = document.getElementById('tbody1');
-        var trow = document.createElement('tr');
-        var td1 = document.createElement('td');
-        var td2 = document.createElement('td');
-        var td3 = document.createElement('td');
-        var td4 = document.createElement('td');
-        var td5 = document.createElement('td');
-        var td6 = document.createElement('td');
-
-        td1.innerHTML = location;
-        td2.innerHTML = level;
-        td3.innerHTML = seat;
-        td4.innerHTML = date;
-        td5.innerHTML = time_start;
-        td6.innerHTML = time_end;
-        
-
-        trow.appendChild(td1); trow.appendChild(td2); trow.appendChild(td3); trow.appendChild(td4); trow.appendChild(td5); trow.appendChild(td6); 
-        tbody.appendChild(trow);
-
-    }
 
 
     export default {
@@ -116,10 +85,15 @@
                 this.$router.push({ name: 'Booking' })
             },
 
+            goOccupancy() {
+                this.$router.push({ name: 'Occupancy' })
+            },
+
             
 
             async fetchAndUpdateData(useremail) {
             let allDocuments = await getDocs(collection(db, String(useremail)));
+
 
             // Promise.all to ensure all async operations are over.
             // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
@@ -127,6 +101,7 @@
             this.tableRows = await Promise.all(
                 allDocuments.docs.map(async (doc) => {
                     let documentData = doc.data();
+
                     let library = documentData.library;
                     let level = documentData.level;
                     let seat = documentData.seat;
@@ -141,7 +116,7 @@
                         seat,
                         date,
                         time_start,
-                        time_end,
+                        time_end, 
                     };
                 }),
             );
@@ -151,7 +126,7 @@
             await deleteDoc(doc(db, user, library));
             console.log("Booking successfully deleted!");
             
-            // Refresh table data and total profit
+            // Refresh table data for updated bookings
             await this.fetchAndUpdateData(this.useremail);
         },
         }
@@ -187,7 +162,7 @@
     }
 
     /**style big button */
-    #im_here, #view_occupancy, #new_booking {
+    #im_here, #view_occupancy, #new_booking, #temp_update {
         background-color:#ef7c00;
         font: 700;
         font-weight: bold;
@@ -202,7 +177,7 @@
         padding-bottom: 10px;
     }
 
-    #im_here:hover, #view_occupancy:hover, #new_booking:hover {
+    #im_here:hover, #view_occupancy:hover, #new_booking:hover, #temp_update:hover {
         transition: 0.3s;
         background-color:#003d7c;
     }

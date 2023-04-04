@@ -13,7 +13,20 @@
             <th>Date</th>
             <th>Time Start</th>
             <th>Time End</th>
-            <th>Options</th>
+            <th class="options">Options</th>
+        </tr>
+        <tr>
+            <th>{{userbooking.library}}</th>
+            <th>{{userbooking.level}}</th>
+            <th>{{userbooking.seat}}</th>
+            <th>{{userbooking.date}}</th>
+            <th>{{userbooking.time_start}}</th>
+            <th>{{userbooking.time_end}}</th>
+            <th>
+                <div style="display:flex;flex-direction: row;">
+                    <p id = "editButton" v-on:click="goEdit"><u>Edit</u></p><p> | </p><p id = "deleteButton" v-on:click="goDelete"><u>Delete</u></p>
+                </div>
+            </th>
         </tr>
     </table><br><br>
 
@@ -24,10 +37,10 @@
     </div>
 
     <br><br>
+    <br><br>
 
-    <div id = "deleteButtons">
-        <button id = "editButton" type = "button" v-on:click="goEdit">Edit </button><br><br>
-        <button id = "deleteButton" type = "button" v-on:click="goDelete">Delete</button>
+    <div id = "editAndDelete">
+
     </div>
     
 </template>

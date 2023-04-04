@@ -4,23 +4,23 @@
         <table style="width:1px">
             <tr>
                 <th>Library:</th>
-                <th class="secondColumn"><!--{{ booking.library }}--></th>
+                <th class="secondColumn">{{ this.booking.library }}</th>
             </tr>
             <tr>
                 <th>Level:</th>
-                <th><!--{{ booking.level }}--></th>
+                <th>{{ this.booking.level }}</th>
             </tr>
             <tr>
                 <th>Date:</th>
-                <th><!--{{ booking.date }}--></th>
+                <th>{{ this.booking.date }}</th>
             </tr>
             <tr>
                 <th>Time:</th>
-                <th><!--{{ booking.time }}--></th>
+                <th>{{ this.booking.time_start }} to {{ this.booking.time_end }}</th>
             </tr>
             <tr>
                 <th>Seat Number:</th>
-                <th><!--{{ booking.seat }}--></th>
+                <th>{{ this.booking.seat }}</th>
             </tr>
         </table>
         <br><br>
@@ -39,6 +39,11 @@
     
 
     export default {
+        data: function() {
+            return {
+                booking : JSON.parse(this.$route.params.booking)
+            }
+        },
         methods: {
             goHome() {
                 this.$router.push({ name: 'Home' })
@@ -54,13 +59,10 @@
             }
             */
             deleteBooking() {
-                this.booking = JSON.parse(this.$route.params.booking)
-                console.log(this.booking)
+                let timeStamps = []
 
-                let data = {}
-
-                let time1Int = this.booking.time_start
-                let time2Int = this.booking.time_end
+                let time1Int = parseInt(this.booking.time_start)
+                let time2Int = parseInt(this.booking.time_end)
 
                 let timeadd = time1Int
                 let timeaddstr = ""
@@ -70,13 +72,24 @@
                     } else {
                         timeaddstr = String(timeadd)
                     }
-                    data[timeaddstr] = this.useremail
+                    timeStamps.push(timeaddstr)
                     timeadd += 100
                 }
 
-                console.log("test")
+                console.log(timeStamps)
+                let path = this.booking.date + "/" + this.booking.library + "/" + this.booking.level + "/" + this.booking.seat
+                console.log(path)
 
-                console.log(data)
+                timeStamps.forEach(function (time) {
+                    console.log(time)
+                    const bookingRef = doc(db, path);
+                    console.log(bookingRef)
+                    updateDoc(bookingRef, {
+                        [time]: deleteField()
+                    });
+                });
+                alert("your booking has been deleted");
+                this.$router.push({ name: 'Booking' })
 
                 /*
                 userbooking : 
@@ -86,6 +99,14 @@
                     seat: "22",
                     time_start: "1200",
                     time_end: "1700"}
+
+
+                    let CID = "2dfPipFRKiB6TAKab4jv8";
+                    let LID = "352oIP3fdc6IIvuBbajR0";
+
+                    await db.collection('users').doc(UID).update( {
+                    [`CourseList.${CID}.LectureList.${LID}`]: FieldValue.delete() 
+} )
                 */
             }
         }

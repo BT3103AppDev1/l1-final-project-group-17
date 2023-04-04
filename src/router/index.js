@@ -18,7 +18,8 @@ const routes = [
     {
         path: '/Home',
         name: 'Home',
-        component: Home
+        component: Home,
+        props: true
     },
     {
         path: '/Booking',
@@ -42,9 +43,10 @@ const routes = [
         component: Logout
     },
     {
-        path: '/Delete',
+        path: '/Delete/:booking',
         name: 'Delete',
-        component: Delete
+        component: Delete,
+        props: true
     },
     {
         path: '/Edit',

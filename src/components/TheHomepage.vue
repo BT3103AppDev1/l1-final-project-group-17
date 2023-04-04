@@ -35,14 +35,16 @@
 
 <script>
 
-    import TheDeletePage from './TheDeletePage.vue'
-
     export default {
-
-        components: {TheDeletePage},
-        data() {
+        data: function() {
             return {
-                testMessage: "TEST234"
+                userbooking : 
+                    {date: "2023-04-04",
+                    library: "clb",
+                    level: "level5",
+                    seat: "22",
+                    time_start: "1200",
+                    time_end: "1700"}
             }
         },
         methods: {
@@ -53,12 +55,12 @@
                 this.$router.push({name: 'Occupancy' })
             },            
             goDelete() {
-                this.$router.push({ name: 'Delete' })
+                this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(this.userbooking)}})
             },
             goEdit() {
                 this.$router.push({name: 'Edit' })
             }
-        },
+        }
     }
 </script>
 

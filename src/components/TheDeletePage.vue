@@ -1,7 +1,4 @@
 <template>
-    <div>
-    <p>{{ testMessage }}</p>
-    </div>
     <div class = "container">
         <br><br>
         <table style="width:1px">
@@ -39,13 +36,14 @@
     import { deleteField, getFirestore, updateDoc } from "firebase/firestore";
     import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
     const db = getFirestore(firebaseApp);
+    
 
     export default {
-        props: ['testMessage'],
         methods: {
             goHome() {
                 this.$router.push({ name: 'Home' })
             },
+            /*
             deleteBooking() {
                 const bookingRef = doc(db, "bookings/20230320");
                 updateDoc(bookingRef, {
@@ -54,9 +52,46 @@
                 alert("your booking has been deleted");
                 this.$router.push({ name: 'Home' })
             }
-        },
-        created: function() {
-            console.log(this.testMessage)
+            */
+            deleteBooking() {
+                this.booking = JSON.parse(this.$route.params.booking)
+                console.log(this.booking)
+
+
+
+
+                /*
+                userbooking : 
+                    {date: "2023-04-04",
+                    library: "clb",
+                    level: "level5",
+                    seat: "22",
+                    time_start: "1200",
+                    time_end: "1700"}
+                    
+                let data = {}
+
+                let timeadd = time1Int
+                let timeaddstr = ""
+                while (timeadd != time2Int) {
+                    if (timeadd < 1000) {
+                        timeaddstr = "0" + String(timeadd)
+                    } else {
+                        timeaddstr = String(timeadd)
+                    }
+                    data[timeaddstr] = this.useremail
+                    timeadd += 100
+                }
+
+                console.log(data)
+                */
+
+
+
+
+
+                const bookingRef = doc(db, "bookings/20230320");
+            }
         }
     }
 

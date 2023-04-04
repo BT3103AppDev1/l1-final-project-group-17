@@ -91,20 +91,32 @@
 
 
             validDate(booking) {
+                let today = new Date().toLocaleDateString().split('T')[0];
+                let bookingdate = booking.date;
+                console.log("booking date")
+                console.log(bookingdate)
 
+                let todayarr = today.split("/")
+                let day = todayarr[0]
+                let month = todayarr[1]
+                let year = todayarr[2]
 
-            let today = new Date().toLocaleDateString().split('T')[0];
-            console.log("todays date")
+                if (day.length == 1) {
+                    day = "0" + day
+                }
 
-            console.log(today)
-            let bookingdate = booking.date;
+                if (month.length == 1) {
+                    month = "0" + month
+                }
 
-            console.log("booking date")
-            console.log(bookingdate)
+                today = year + "-" + month + "-" + day
 
-            console.log(today.localeCompare(bookingdate));
-            return today.localeCompare(bookingdate) < 0;
-        },
+                console.log("todays date")
+                console.log(today)
+
+                console.log(today.localeCompare(bookingdate));
+                return today.localeCompare(bookingdate) < 0;
+            },
 
             
 

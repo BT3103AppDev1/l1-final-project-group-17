@@ -57,19 +57,10 @@
                 this.booking = JSON.parse(this.$route.params.booking)
                 console.log(this.booking)
 
-
-
-
-                /*
-                userbooking : 
-                    {date: "2023-04-04",
-                    library: "clb",
-                    level: "level5",
-                    seat: "22",
-                    time_start: "1200",
-                    time_end: "1700"}
-                    
                 let data = {}
+
+                let time1Int = this.booking.time_start
+                let time2Int = this.booking.time_end
 
                 let timeadd = time1Int
                 let timeaddstr = ""
@@ -83,14 +74,19 @@
                     timeadd += 100
                 }
 
+                console.log("test")
+
                 console.log(data)
+
+                /*
+                userbooking : 
+                    {date: "2023-04-04",
+                    library: "clb",
+                    level: "level5",
+                    seat: "22",
+                    time_start: "1200",
+                    time_end: "1700"}
                 */
-
-
-
-
-
-                const bookingRef = doc(db, "bookings/20230320");
             }
         }
     }

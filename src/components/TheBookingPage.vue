@@ -300,7 +300,16 @@
                         )
                     }
 
-                    this.$router.push({ name: 'Confirmation'})
+                    this.$router.push({ 
+                        name: 'Confirmation',
+                        query: {
+                            date: bookingdate,
+                            library: library,
+                            level: level,
+                            seat: seat,
+                            time_start: time1,
+                            time_end: time2}
+                    })
 
                 }
                 catch(error) {
@@ -310,7 +319,7 @@
             },
 
             gobackbutton() {
-                this.$router.push({ name: 'Home' })
+                this.$router.push({ name: 'Home'})
             }
         }
     }

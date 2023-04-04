@@ -3,11 +3,11 @@
         <h3 id = "successful">Booking Successful!</h3>
 
         <!-- //input booking details -->
-        <p id = "library">Library:</p>
-        <p id = "level">Level:</p>
-        <p id = "date">Date:</p>
-        <p id = "time">Time:</p>
-        <p id = "seat">Seat Number:</p>
+        <p id = "library">Library: {{library}} </p>
+        <p id = "level">Level: {{level}} </p>
+        <p id = "date">Date: {{date}} </p>
+        <p id = "time">Time: {{timestart}} - {{timeend}} </p>
+        <p id = "seat">Seat Number: {{seat}} </p>
     </div>
 
     <div class = "buttons">
@@ -26,6 +26,27 @@
         methods: {
             goHome() {
                 this.$router.push({ name: 'Home' })
+            }
+        },
+
+        mounted() {
+            this.library = this.$route.query.library
+            this.level = this.$route.query.level
+            this.date = this.$route.query.date
+            this.timestart = this.$route.query.time_start
+            this.timeend = this.$route.query.time_end
+            this.seat = this.$route.query.seat
+
+        },
+
+        data(){
+            return {
+                library: "",
+                level: "",
+                date: "",
+                timestart: "",
+                timeend: "",
+                seat: ""
             }
         }
     }

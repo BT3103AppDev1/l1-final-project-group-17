@@ -6,6 +6,7 @@ import Occupancy from '@/views/Occupancy.vue'
 import Notifications from '@/views/Notifications.vue'
 import Logout from '@/components/TheLogoutPage.vue'
 import Delete from '@/views/Delete.vue'
+import Confirmation from '@/components/TheBookingConfirmationPage.vue'
 
 const routes = [
     {
@@ -43,6 +44,12 @@ const routes = [
         path: '/Delete',
         name: 'Delete',
         component: Delete
+    },
+    {
+        path: '/Confirmation',
+        name: 'Confirmation',
+        component: Confirmation,
+        props: true,
     }
 ]
 

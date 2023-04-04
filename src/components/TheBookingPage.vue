@@ -217,13 +217,9 @@
                     return
                 }
        
-                //ToDo: Check bookings -> date -> library -> level -> seat,
-                //if the seat is already booked
+
                 let seatbooked = false
                 try {
-                    // let seatbookinghist = await getDoc(docRefBookings)
-                    // if (seatbookinghist.exists()) -> save to an array (use a query?)
-                    // iterate through the array and if the particular time that the user want to book is inside the array, let seatbooked = true
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     console.log("ASD")
                     let seatbookings = await getDoc(docRefBookings)
@@ -304,29 +300,13 @@
                         )
                     }
 
+                    this.$router.push({ name: 'Confirmation'})
+
                 }
                 catch(error) {
                     console.error("Error adding document: ", error);
                 }
-                
-
-                // Save to db (user) -- Not working yet
-                // try{
-                // console.log(db)
-                // console.log(String(this.useremail))
-
-                // let docRef = await addDoc(doc(db, String(this.useremail), "booking"),{
-                //     date: bookingdate, level: level, library: library, seat: seat, time_end: time2, time_start: time1
-                // })
-                // console.log(docRef)
-                // document.getElementById('myform').reset();
-                // // this.$emit("added")  
-                // }
-                // catch(error) {
-                //     console.error("Error adding document: ", error);
-                // }
-
-
+            
             },
 
             gobackbutton() {

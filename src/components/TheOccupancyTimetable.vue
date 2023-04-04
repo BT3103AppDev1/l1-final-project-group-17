@@ -30,6 +30,10 @@
 
             //Default formatting of date for use in database
             this.bookingdate = this.$route.query.bookingdate
+
+            //Nicer formatting of date to show users
+            this.bookingdate2 = this.bookingdate.slice(-2) + "/" + this.bookingdate.slice(5, 7) + "/" + this.bookingdate.slice(0, 4)
+
         },
 
         data(){

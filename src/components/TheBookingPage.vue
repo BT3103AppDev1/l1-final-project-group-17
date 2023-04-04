@@ -166,6 +166,7 @@
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
+                bookingdate = new Date(bookingdate).toLocaleDateString().split('T')[0];
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value

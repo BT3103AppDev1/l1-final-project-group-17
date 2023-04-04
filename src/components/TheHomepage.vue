@@ -48,7 +48,7 @@
 <script>
     import firebaseApp from '../firebase.js';
     import { getFirestore } from 'firebase/firestore';
-    import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+    import { collection, getDoc, getDocs, doc, deleteDoc } from 'firebase/firestore';
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
@@ -89,25 +89,71 @@
                 this.$router.push({ name: 'Occupancy' })
             },
 
+
+            validDate(booking) {
+
+
+            let today = new Date().toLocaleDateString().split('T')[0];
+            console.log("todays date")
+
+            console.log(today)
+            let bookingdate = booking.date;
+
+            console.log("booking date")
+            console.log(bookingdate)
+
+            console.log(today.localeCompare(bookingdate));
+            return today.localeCompare(bookingdate) < 0;
+        },
+
             
 
             async fetchAndUpdateData(useremail) {
-            let allDocuments = await getDocs(collection(db, String(useremail)));
+            //let allDocuments = await getDocs(collection(db, "users"));
+            //let userBookings = allDocuments.data()[String(useremail)];
+
+            // const docRefUser = await collection(db, "users")
+            // let userbookings = await getDocs(docRefUser)
+            // let userdata = userbookings.data()["bookings"]
+
+            const docRefUser = await doc(db, "users", useremail)
+            let userbookings = await getDoc(docRefUser)
+            let userdata = userbookings.data()["bookings"]
+            userdata = userdata.filter(this.validDate)
+
+            console.log(userdata)
+
+            console.log(new Date())
+
+
+            // for (let i = 0; i < 5; i++) {
+            //     console.log(userdata[i])
+
+            // }
+             
+            
+
+            
 
 
             // Promise.all to ensure all async operations are over.
             // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
 
             this.tableRows = await Promise.all(
-                allDocuments.docs.map(async (doc) => {
-                    let documentData = doc.data();
+                userdata.map(async (doc) => {
+                    
+                    // let documentData = doc.data();
 
-                    let library = documentData.library;
-                    let level = documentData.level;
-                    let seat = documentData.seat;
-                    let date = documentData.date;
-                    let time_start = documentData.time_start;
-                    let time_end = documentData.time_end;
+                    
+                    
+
+
+                    let library = doc.library;
+                    let level = doc.level;
+                    let seat = doc.seat;
+                    let date = doc.date;
+                    let time_start = doc.time_start;
+                    let time_end = doc.time_end;
                     
                     
                     return {
@@ -119,16 +165,23 @@
                         time_end, 
                     };
                 }),
+
             );
         },
-        async deleteBooking(library, user) {
-            alert("You are going to delete: " + library + " " + level + " " + seat);
-            await deleteDoc(doc(db, user, library));
-            console.log("Booking successfully deleted!");
+
+        
+
+
+
+
+        // async deleteBooking(library, user) {
+        //     alert("You are going to delete: " + library + " " + level + " " + seat);
+        //     await deleteDoc(doc(db, user, library));
+        //     console.log("Booking successfully deleted!");
             
-            // Refresh table data for updated bookings
-            await this.fetchAndUpdateData(this.useremail);
-        },
+        //     // Refresh table data for updated bookings
+        //     await this.fetchAndUpdateData(this.useremail);
+        // },
         }
     }
 </script>

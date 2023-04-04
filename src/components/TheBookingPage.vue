@@ -273,8 +273,6 @@
                         alert("Seat is already booked! Please choose another seat or time!")
                         return
                     }
-
-                    alert(bookingdate)
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     const docRefUser = await doc(db, "users", String(this.useremail))
                     

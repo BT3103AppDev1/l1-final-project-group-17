@@ -7,6 +7,7 @@ import Notifications from '@/views/Notifications.vue'
 import Logout from '@/components/TheLogoutPage.vue'
 import Delete from '@/views/Delete.vue'
 import Edit from '@/views/Edit.vue'
+import Confirmation from '@/components/TheBookingConfirmationPage.vue'
 
 const routes = [
     {
@@ -53,6 +54,12 @@ const routes = [
         name: 'Edit',
         component: Edit,
         props: true
+    },
+    {
+        path: '/Confirmation',
+        name: 'Confirmation',
+        component: Confirmation,
+        props: true,
     }
 ]
 

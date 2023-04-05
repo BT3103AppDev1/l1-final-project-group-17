@@ -81,7 +81,7 @@
 
     <div class = "buttons">
         <div class = "checkseats">
-            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Check Available Seats </button>
+            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Book Seat</button>
         </div>
 
         <div class = "back">
@@ -166,6 +166,24 @@
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
+                bookingdate = new Date(bookingdate).toLocaleDateString().split('T')[0];
+
+                let bookingdatearr = bookingdate.split("/")
+                let day = bookingdatearr[0]
+                let month = bookingdatearr[1]
+                let year = bookingdatearr[2]
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                bookingdate = year + "-" + month + "-" + day
+
+                
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value
@@ -217,13 +235,9 @@
                     return
                 }
        
-                //ToDo: Check bookings -> date -> library -> level -> seat,
-                //if the seat is already booked
+
                 let seatbooked = false
                 try {
-                    // let seatbookinghist = await getDoc(docRefBookings)
-                    // if (seatbookinghist.exists()) -> save to an array (use a query?)
-                    // iterate through the array and if the particular time that the user want to book is inside the array, let seatbooked = true
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     console.log("ASD")
                     let seatbookings = await getDoc(docRefBookings)
@@ -304,33 +318,26 @@
                         )
                     }
 
+                    this.$router.push({ 
+                        name: 'Confirmation',
+                        query: {
+                            date: bookingdate,
+                            library: library,
+                            level: level,
+                            seat: seat,
+                            time_start: time1,
+                            time_end: time2}
+                    })
+
                 }
                 catch(error) {
                     console.error("Error adding document: ", error);
                 }
-                
-
-                // Save to db (user) -- Not working yet
-                // try{
-                // console.log(db)
-                // console.log(String(this.useremail))
-
-                // let docRef = await addDoc(doc(db, String(this.useremail), "booking"),{
-                //     date: bookingdate, level: level, library: library, seat: seat, time_end: time2, time_start: time1
-                // })
-                // console.log(docRef)
-                // document.getElementById('myform').reset();
-                // // this.$emit("added")  
-                // }
-                // catch(error) {
-                //     console.error("Error adding document: ", error);
-                // }
-
-
+            
             },
 
             gobackbutton() {
-                this.$router.push({ name: 'Home' })
+                this.$router.push({ name: 'Home'})
             }
         }
     }

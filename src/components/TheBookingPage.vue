@@ -169,8 +169,8 @@
                 bookingdate = new Date(bookingdate).toLocaleDateString().split('T')[0];
 
                 let bookingdatearr = bookingdate.split("/")
-                let day = bookingdatearr[0]
-                let month = bookingdatearr[1]
+                let day = bookingdatearr[1]
+                let month = bookingdatearr[0]
                 let year = bookingdatearr[2]
 
                 if (day.length == 1) {

@@ -17,6 +17,16 @@
               TheHomepageVue, 
               TheSidebarVue
           },
+          data(){
+    return{
+      refreshComp:0
+    }
+   },
+  methods:{
+    change(){  
+      this.refreshComp += 1
+      }
+     }
         }
 </script>
 

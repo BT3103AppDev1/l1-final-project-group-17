@@ -94,9 +94,6 @@
             goOccupancy() {
                 this.$router.push({ name: 'Occupancy' })
             },        
-            goDelete() {
-                this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(this.userbooking)}})
-            },
 
             validDate(booking) {
                 let today = new Date().toLocaleDateString().split('T')[0];
@@ -188,12 +185,15 @@
 
             );
         },
+
+
+        async deleteBooking(library, user) {
+            console.log(library)
+            console.log(user)
+        }
         
 
-        
-
-
-
+    
 
         // async deleteBooking(library, user) {
         //     alert("You are going to delete: " + library + " " + level + " " + seat);

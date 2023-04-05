@@ -258,6 +258,7 @@
         display: flex;
         width: 50%;
         float: right;
+        margin-top: 10px;
     }
 
     #im_here:hover, #view_occupancy:hover, #new_booking:hover, #temp_update:hover {

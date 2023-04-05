@@ -41,13 +41,6 @@
 
         <button id = "temp_update" type = "button" v-on:click="reload">Refresh Bookings </button>
     </div>
-
-    <br><br>
-    <br><br>
-
-    <div id = "editAndDelete">
-
-    </div>
     
 </template>
 
@@ -75,8 +68,6 @@
                 
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    console.log("USER YES")
-                    console.log(user.email)
                     this.user = user
                     this.useremail = user.email
                 }
@@ -93,21 +84,21 @@
             goBooking() {
                 this.$router.push({ name: 'Booking' })
             },
+
             goOccupancy() {
                 this.$router.push({ name: 'Occupancy' })
-            },        
+            },
+
 
             validDate(booking) {
                 let today = new Date().toLocaleDateString().split('T')[0];
-                console.log("MYTODAY")
-                console.log(today)
                 let bookingdate = booking.date;
                 console.log("booking date")
                 console.log(bookingdate)
 
                 let todayarr = today.split("/")
-                let day = todayarr[1]
-                let month = todayarr[0]
+                let day = todayarr[0]
+                let month = todayarr[1]
                 let year = todayarr[2]
 
                 if (day.length == 1) {
@@ -122,87 +113,84 @@
 
                 console.log("todays date")
                 console.log(today)
-                console.log("valid date func:")
+
                 console.log(today.localeCompare(bookingdate));
-                return today.localeCompare(bookingdate) <= 0;
+                return today.localeCompare(bookingdate) < 0;
             },
 
             
 
             async fetchAndUpdateData(useremail) {
-                //let allDocuments = await getDocs(collection(db, "users"));
-                //let userBookings = allDocuments.data()[String(useremail)];
+            //let allDocuments = await getDocs(collection(db, "users"));
+            //let userBookings = allDocuments.data()[String(useremail)];
 
-                // const docRefUser = await collection(db, "users")
-                // let userbookings = await getDocs(docRefUser)
-                // let userdata = userbookings.data()["bookings"]
+            // const docRefUser = await collection(db, "users")
+            // let userbookings = await getDocs(docRefUser)
+            // let userdata = userbookings.data()["bookings"]
 
-                const docRefUser = await doc(db, "users", useremail)
-                let userbookings = await getDoc(docRefUser)
-                let userdata = userbookings.data()["bookings"]
-                userdata = userdata.filter(this.validDate)
-                console.log("userbookings")
-                console.log(userbookings)
-                console.log("userdata")
-                console.log(userdata)
+            const docRefUser = await doc(db, "users", useremail)
+            let userbookings = await getDoc(docRefUser)
+            let userdata = userbookings.data()["bookings"]
+            userdata = userdata.filter(this.validDate)
 
-                console.log(new Date())
+            console.log(userdata)
+
+            console.log(new Date())
 
 
-                // for (let i = 0; i < 5; i++) {
-                //     console.log(userdata[i])
+            // for (let i = 0; i < 5; i++) {
+            //     console.log(userdata[i])
 
-                // }
-                
-                
+            // }
+             
+            
 
-                
-
-
-                // Promise.all to ensure all async operations are over.
-                // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
-
-                this.tableRows = await Promise.all(
-                    userdata.map(async (doc) => {
-                        
-                        // let documentData = doc.data();
-
-                        
-                        
+            
 
 
-                        let library = doc.library;
-                        let level = doc.level;
-                        let seat = doc.seat;
-                        let date = doc.date;
-                        let time_start = doc.time_start;
-                        let time_end = doc.time_end;
-                        
-                        
-                        return {
-                            library,
-                            level,
-                            seat,
-                            date,
-                            time_start,
-                            time_end, 
-                        };
-                    }),
+            // Promise.all to ensure all async operations are over.
+            // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
 
-                );
-                console.log(this.tableRows)
-            },
+            this.tableRows = await Promise.all(
+                userdata.map(async (doc) => {
+                    
+                    // let documentData = doc.data();
+
+                    
+                    
 
 
-            async deleteBooking(library, user) {
+                    let library = doc.library;
+                    let level = doc.level;
+                    let seat = doc.seat;
+                    let date = doc.date;
+                    let time_start = doc.time_start;
+                    let time_end = doc.time_end;
+                    
+                    
+                    return {
+                        library,
+                        level,
+                        seat,
+                        date,
+                        time_start,
+                        time_end, 
+                    };
+                }),
+
+            );
+        },
+
+        async deleteBooking(library, user) {
                 this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(library)}})
             },
-
+        
             reload() {
                 window.location.reload()
             }
 
-     
+        
+
         }
     }
 </script>
@@ -251,16 +239,32 @@
         padding-bottom: 10px;
     }
 
+    #im_here:hover, #view_occupancy:hover, #new_booking:hover, #temp_update:hover {
+        transition: 0.3s;
+        background-color:#003d7c;
+    }
+
     #buttons {
         display: flex;
         width: 50%;
         float: right;
-        margin-top: 10px;
     }
 
-    #im_here:hover, #view_occupancy:hover, #new_booking:hover, #temp_update:hover {
-        transition: 0.3s;
-        background-color:#f3b97b;
+    button {
+        background-color:#ef7c00;
+        font: 700;
+        font-weight: bold;
+        font-size: 1em;
+        color: white;
+        border-color: white;
+        border-radius: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        float: left
     }
 
 

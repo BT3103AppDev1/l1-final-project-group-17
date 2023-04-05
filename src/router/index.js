@@ -6,12 +6,9 @@ import Occupancy from '@/views/Occupancy.vue'
 import Notifications from '@/views/Notifications.vue'
 import Logout from '@/components/TheLogoutPage.vue'
 import Delete from '@/views/Delete.vue'
-<<<<<<< HEAD
 import Edit from '@/views/Edit.vue'
 import Confirmation from '@/components/TheBookingConfirmationPage.vue'
-=======
 import Timetable from '@/views/Timetable.vue'
->>>>>>> occupancy2
 
 const routes = [
     {
@@ -50,7 +47,6 @@ const routes = [
     {
         path: '/Delete/:booking',
         name: 'Delete',
-<<<<<<< HEAD
         component: Delete,
         props: true
     },
@@ -65,7 +61,6 @@ const routes = [
         name: 'Confirmation',
         component: Confirmation,
         props: true,
-=======
         component: Delete
     },
     {
@@ -73,7 +68,6 @@ const routes = [
         name: 'Timetable',
         props: true,
         component: Timetable,
->>>>>>> occupancy2
     }
 ]
 

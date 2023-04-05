@@ -39,7 +39,7 @@
 
         <button id = "new_booking" type = "button" v-on:click="goBooking">New Booking </button><br><br>
 
-        <button id = "temp_update" type = "button" v-on:click="fetchAndUpdateData">Temp Update </button>
+        <button id = "temp_update" type = "button" v-on:click="reload">Refresh Bookings </button>
     </div>
 
     <br><br>
@@ -130,82 +130,79 @@
             
 
             async fetchAndUpdateData(useremail) {
-            //let allDocuments = await getDocs(collection(db, "users"));
-            //let userBookings = allDocuments.data()[String(useremail)];
+                //let allDocuments = await getDocs(collection(db, "users"));
+                //let userBookings = allDocuments.data()[String(useremail)];
 
-            // const docRefUser = await collection(db, "users")
-            // let userbookings = await getDocs(docRefUser)
-            // let userdata = userbookings.data()["bookings"]
+                // const docRefUser = await collection(db, "users")
+                // let userbookings = await getDocs(docRefUser)
+                // let userdata = userbookings.data()["bookings"]
 
-            const docRefUser = await doc(db, "users", useremail)
-            let userbookings = await getDoc(docRefUser)
-            let userdata = userbookings.data()["bookings"]
-            userdata = userdata.filter(this.validDate)
-            console.log("userbookings")
-            console.log(userbookings)
-            console.log("userdata")
-            console.log(userdata)
+                const docRefUser = await doc(db, "users", useremail)
+                let userbookings = await getDoc(docRefUser)
+                let userdata = userbookings.data()["bookings"]
+                userdata = userdata.filter(this.validDate)
+                console.log("userbookings")
+                console.log(userbookings)
+                console.log("userdata")
+                console.log(userdata)
 
-            console.log(new Date())
-
-
-            // for (let i = 0; i < 5; i++) {
-            //     console.log(userdata[i])
-
-            // }
-             
-            
-
-            
+                console.log(new Date())
 
 
-            // Promise.all to ensure all async operations are over.
-            // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
+                // for (let i = 0; i < 5; i++) {
+                //     console.log(userdata[i])
 
-            this.tableRows = await Promise.all(
-                userdata.map(async (doc) => {
-                    
-                    // let documentData = doc.data();
+                // }
+                
+                
 
-                    
-                    
+                
 
 
-                    let library = doc.library;
-                    let level = doc.level;
-                    let seat = doc.seat;
-                    let date = doc.date;
-                    let time_start = doc.time_start;
-                    let time_end = doc.time_end;
-                    
-                    
-                    return {
-                        library,
-                        level,
-                        seat,
-                        date,
-                        time_start,
-                        time_end, 
-                    };
-                }),
+                // Promise.all to ensure all async operations are over.
+                // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
 
-            );
-            console.log(this.tableRows)
-        },
+                this.tableRows = await Promise.all(
+                    userdata.map(async (doc) => {
+                        
+                        // let documentData = doc.data();
+
+                        
+                        
 
 
-        async deleteBooking(library, user) {
-            this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(library)}})
-        }
+                        let library = doc.library;
+                        let level = doc.level;
+                        let seat = doc.seat;
+                        let date = doc.date;
+                        let time_start = doc.time_start;
+                        let time_end = doc.time_end;
+                        
+                        
+                        return {
+                            library,
+                            level,
+                            seat,
+                            date,
+                            time_start,
+                            time_end, 
+                        };
+                    }),
 
-        // async deleteBooking(library, user) {
-        //     alert("You are going to delete: " + library + " " + level + " " + seat);
-        //     await deleteDoc(doc(db, user, library));
-        //     console.log("Booking successfully deleted!");
-            
-        //     // Refresh table data for updated bookings
-        //     await this.fetchAndUpdateData(this.useremail);
-        // },
+                );
+                console.log(this.tableRows)
+            },
+
+
+            async deleteBooking(library, user) {
+                this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(library)}})
+            },
+
+            reload() {
+                window.location.reload()
+            }
+
+     
         }
     }
 </script>

@@ -110,8 +110,9 @@
                 });
 
 
-                alert("your booking has been deleted");
-                this.$router.push({ name: 'Booking' })
+                alert("Booking successfully deleted!");
+                console.log("Booking successfully deleted!");
+                this.$router.push({ name: 'Home' })
 
 
                 /*

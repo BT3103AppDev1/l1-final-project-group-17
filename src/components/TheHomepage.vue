@@ -75,6 +75,8 @@
                 
             onAuthStateChanged(auth, (user) => {
                 if (user) {
+                    console.log("USER YES")
+                    console.log(user.email)
                     this.user = user
                     this.useremail = user.email
                 }
@@ -97,13 +99,15 @@
 
             validDate(booking) {
                 let today = new Date().toLocaleDateString().split('T')[0];
+                console.log("MYTODAY")
+                console.log(today)
                 let bookingdate = booking.date;
                 console.log("booking date")
                 console.log(bookingdate)
 
                 let todayarr = today.split("/")
-                let day = todayarr[0]
-                let month = todayarr[1]
+                let day = todayarr[1]
+                let month = todayarr[0]
                 let year = todayarr[2]
 
                 if (day.length == 1) {
@@ -118,9 +122,9 @@
 
                 console.log("todays date")
                 console.log(today)
-
+                console.log("valid date func:")
                 console.log(today.localeCompare(bookingdate));
-                return today.localeCompare(bookingdate) < 0;
+                return today.localeCompare(bookingdate) <= 0;
             },
 
             
@@ -137,7 +141,9 @@
             let userbookings = await getDoc(docRefUser)
             let userdata = userbookings.data()["bookings"]
             userdata = userdata.filter(this.validDate)
-
+            console.log("userbookings")
+            console.log(userbookings)
+            console.log("userdata")
             console.log(userdata)
 
             console.log(new Date())
@@ -184,16 +190,13 @@
                 }),
 
             );
+            console.log(this.tableRows)
         },
 
 
         async deleteBooking(library, user) {
-            console.log(library)
-            console.log(user)
+            this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(library)}})
         }
-        
-
-    
 
         // async deleteBooking(library, user) {
         //     alert("You are going to delete: " + library + " " + level + " " + seat);

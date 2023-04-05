@@ -61,7 +61,6 @@ const routes = [
         name: 'Confirmation',
         component: Confirmation,
         props: true,
-        component: Delete
     },
     {
         path: '/Timetable',

@@ -1,17 +1,33 @@
 <template>
-    <div>
+    <div class = "container">
         <h3 id = "successful">Booking Successful!</h3>
-
-        <!-- //input booking details -->
-        <p id = "library">Library: {{library}} </p>
-        <p id = "level">Level: {{level}} </p>
-        <p id = "date">Date: {{date}} </p>
-        <p id = "time">Time: {{timestart}} - {{timeend}} </p>
-        <p id = "seat">Seat Number: {{seat}} </p>
-    </div>
-
-    <div class = "buttons">
-        <button id = "goHome" type = "button" v-on:click="goHome">Ok</button>
+        <br><br>
+        <table style="width:1px">
+            <tr>
+                <th>Library:</th>
+                <th class="secondColumn">{{ library }}</th>
+            </tr>
+            <tr>
+                <th>Level:</th>
+                <th>{{ level }}</th>
+            </tr>
+            <tr>
+                <th>Date:</th>
+                <th>{{ date }}</th>
+            </tr>
+            <tr>
+                <th>Time:</th>
+                <th>{{ timestart }} to {{ timeend }}</th>
+            </tr>
+            <tr>
+                <th>Seat Number:</th>
+                <th>{{ seat }}</th>
+            </tr>
+        </table>
+        <br><br>
+        <div id = "buttons">
+            <button id = "goHome" type = "button" v-on:click="goHome">Ok</button><br><br>
+        </div>
     </div>
 </template>
 
@@ -36,6 +52,13 @@
             this.timestart = this.$route.query.time_start
             this.timeend = this.$route.query.time_end
             this.seat = this.$route.query.seat
+
+            console.log(this.library)
+            console.log(this.level)
+            console.log(this.date)
+            console.log(this.timestart)
+            console.log(this.timeend)
+            console.log(this.seat)
 
         },
 

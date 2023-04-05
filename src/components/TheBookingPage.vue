@@ -415,7 +415,7 @@
         width: 40%;
     }
 
-    button {
+    #checkseatsbutton {
         background-color:#ef7c00;
         font: 700;
         font-weight: bold;
@@ -431,8 +431,29 @@
         margin-right: 10px;
     }
 
-    button:hover {
+    #checkseatsbutton:hover {
         transition: 0.3s;
+        background-color:#f3b97b;
+    }
+
+    #backbutton {
         background-color:#003d7c;
+        font: 700;
+        font-weight: bold;
+        font-size: 1em;
+        color: white;
+        border-color: white;
+        border-radius: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #backbutton:hover {
+        transition: 0.3s;
+        background-color:#5c96cf;
     }
 </style>

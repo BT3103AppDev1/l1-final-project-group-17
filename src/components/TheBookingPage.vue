@@ -6,7 +6,7 @@
                 <label for = "library1">Library</label> <br>
                 <select name = "library1" id = "library1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
-                    <option value = "clb">Central Library</option>
+                    <option value = "Central Library">Central Library</option>
                 </select>
 
                 <br>
@@ -14,9 +14,9 @@
                 <label for = "level1">Level</label> <br>
                 <select name = "level1" id = "level1" v-on:click="updatePicture">
                     <option value = "select">--Select an option--</option>
-                    <option value = "level5">Level 5</option>
-                    <option value = "level6">Level 6</option>
-                    <option value = "level6(Chinese Library)">Level 6 (Chinese Library)</option>
+                    <option value = "Level 5">Level 5</option>
+                    <option value = "Level 6">Level 6</option>
+                    <option value = "Level 6 (Chinese Library)">Level 6 (Chinese Library)</option>
                 </select>
 
                 <br>
@@ -135,11 +135,11 @@
                 this.clblevel5 = false
                 this.clbchinese = false
 
-                if (library == "clb" && level =="level6") {
+                if (library == "Central Library" && level =="Level 6") {
                     this.clblevel6 = true
-                } else if (library == "clb" && level =="level5") {
+                } else if (library == "Central Library" && level =="Level 5") {
                     this.clblevel5 = true
-                } else if (library == "clb" && level =="level6(Chinese Library)") {
+                } else if (library == "Central Library" && level =="Level 6 (Chinese Library)") {
                     this.clbchinese = true
                 }
             },
@@ -210,26 +210,28 @@
                 try {
                     let seatint = parseInt(seat)
 
-                    if (library == "clb" && level == "level5") {
+                    if (library == "Central Library" && level == "Level 5") {
                         if (seatint > 332 || seatint < 1) {
                             alert("Invalid Seat")
                             return
                         }
                     }
 
-                    if (library == "clb" && level == "level6") {
+                    if (library == "Central Library" && level == "Level 6") {
                         if (seatint > 301 || seatint < 1) {
                             alert("Invalid Seat")
                             return
                         }
                     }
 
-                    if (library == "clb" && level == "level6(Chinese Library)") {
+                    if (library == "Central Library" && level == "Level 6 (Chinese Library)") {
                         if (seatint > 120 || seatint < 1) {
                             alert("Invalid Seat")
                             return
                         }
                     }
+
+                    seat = seatint
                 } catch(error) {
                     alert("Invalid Seat")
                     return

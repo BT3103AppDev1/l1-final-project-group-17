@@ -96,13 +96,13 @@
                 let day = booking.date.substring(8)
 
                 let today = new Date()
-                let bookingdate = new Date(year, monthIndex, day);
+                let bookingdate = new Date(year, monthIndex, day, 23, 59, 59);
                 console.log("booking date")
                 console.log(bookingdate)
                 console.log("today")
                 console.log(today)
       
-                return today < bookingdate;
+                return today <= bookingdate;
             },
  
 

@@ -90,37 +90,21 @@
             },
 
 
-            validDate(booking) {
-                let today = new Date().toLocaleDateString().split('T')[0];
-                let bookingdate = booking.date;
+            validDate(booking) {    
+                let year = booking.date.substring(0, 4)
+                let monthIndex = booking.date.substring(5, 7) - 1
+                let day = booking.date.substring(8)
+
+                let today = new Date()
+                let bookingdate = new Date(year, monthIndex, day);
                 console.log("booking date")
                 console.log(bookingdate)
-                console.log("today date unedited")
+                console.log("today")
                 console.log(today)
-
-                let todayarr = today.split("/")
-                let day = todayarr[0]
-                let month = todayarr[1]
-                let year = todayarr[2]
-
-                if (day.length == 1) {
-                    day = "0" + day
-                }
-
-                if (month.length == 1) {
-                    month = "0" + month
-                }
-
-                today = year + "-" + month + "-" + day
-
-                console.log("todays date edited")
-                console.log(today)
-
-                console.log(today.localeCompare(bookingdate));
-                return today.localeCompare(bookingdate) < 0;
+      
+                return today < bookingdate;
             },
-
-            
+ 
 
             async fetchAndUpdateData(useremail) {
 

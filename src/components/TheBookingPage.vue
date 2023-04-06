@@ -121,10 +121,38 @@
 
         methods: {
             validDate(){
-                let today = new Date().toISOString().split('T')[0];
-                let three_days_from_today = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                // let today = new Date().toISOString().split('T')[0];
+                let today = new Date()
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                today = year + "-" + month + "-" + day
+
+                // let two_days_from_today = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                let two_days_from_today = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000)
+                day = two_days_from_today.getDate().toString()
+                month = (two_days_from_today.getMonth() + 1).toString()
+                year = two_days_from_today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                two_days_from_today = year + "-" + month + "-" + day
+
                 document.getElementById("bookingdate1").setAttribute('min', today);
-                document.getElementById("bookingdate1").setAttribute('max', three_days_from_today)
+                document.getElementById("bookingdate1").setAttribute('max', two_days_from_today)
 	        },
 
             updatePicture(){
@@ -166,24 +194,9 @@
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
-                bookingdate = new Date(bookingdate).toLocaleDateString().split('T')[0];
 
-                let bookingdatearr = bookingdate.split("/")
-                let day = bookingdatearr[1]
-                let month = bookingdatearr[0]
-                let year = bookingdatearr[2]
-
-                if (day.length == 1) {
-                    day = "0" + day
-                }
-
-                if (month.length == 1) {
-                    month = "0" + month
-                }
-
-                bookingdate = year + "-" + month + "-" + day
-
-                
+                console.log(bookingdate)
+    
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value

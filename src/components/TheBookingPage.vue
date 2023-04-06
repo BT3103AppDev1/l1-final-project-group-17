@@ -254,7 +254,6 @@
                 let seatbooked = false
                 try {
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
-                    console.log("ASD")
                     let seatbookings = await getDoc(docRefBookings)
 
                     if (seatbookings.exists()) {
@@ -305,6 +304,7 @@
                         timeadd += 100
                     }
 
+                    console.log("Set in booking dates")
                     console.log(data)
 
                     await setDoc(docRefBookings, data);
@@ -319,6 +319,7 @@
                         time_start: time1,
                         time_end: time2}
 
+                    console.log("Set in user")
                     console.log(userbooking)
 
                     if (userbookings.exists()) {

@@ -92,6 +92,7 @@
 
             validDate(booking) {
                 let today = new Date().toLocaleDateString().split('T')[0];
+                console.log(today)
                 let bookingdate = booking.date;
                 console.log("booking date")
                 console.log(bookingdate)
@@ -121,12 +122,7 @@
             
 
             async fetchAndUpdateData(useremail) {
-            //let allDocuments = await getDocs(collection(db, "users"));
-            //let userBookings = allDocuments.data()[String(useremail)];
 
-            // const docRefUser = await collection(db, "users")
-            // let userbookings = await getDocs(docRefUser)
-            // let userdata = userbookings.data()["bookings"]
 
             const docRefUser = await doc(db, "users", useremail)
             let userbookings = await getDoc(docRefUser)
@@ -138,27 +134,13 @@
             console.log(new Date())
 
 
-            // for (let i = 0; i < 5; i++) {
-            //     console.log(userdata[i])
-
-            // }
-             
-            
-
-            
-
-
             // Promise.all to ensure all async operations are over.
             // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
 
             this.tableRows = await Promise.all(
                 userdata.map(async (doc) => {
                     
-                    // let documentData = doc.data();
-
-                    
-                    
-
+                   
 
                     let library = doc.library;
                     let level = doc.level;

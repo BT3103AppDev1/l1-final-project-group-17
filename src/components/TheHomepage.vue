@@ -95,6 +95,8 @@
                 let bookingdate = booking.date;
                 console.log("booking date")
                 console.log(bookingdate)
+                console.log("today date unedited")
+                console.log(today)
 
                 let todayarr = today.split("/")
                 let day = todayarr[0]
@@ -111,7 +113,7 @@
 
                 today = year + "-" + month + "-" + day
 
-                console.log("todays date")
+                console.log("todays date edited")
                 console.log(today)
 
                 console.log(today.localeCompare(bookingdate));

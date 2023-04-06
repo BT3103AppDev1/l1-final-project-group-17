@@ -99,7 +99,8 @@
                         [time]: deleteField()
                     });
                 });
-
+                
+                
                 let path2 = "users/" + String(this.useremail)
                 console.log(path2)
 
@@ -135,7 +136,6 @@
             }
         }
     }
-
 </script>
 
 <style>

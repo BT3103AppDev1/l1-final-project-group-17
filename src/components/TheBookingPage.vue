@@ -195,10 +195,8 @@
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
 
-<<<<<<< HEAD
                 console.log(bookingdate)
     
-=======
                 let bookingdatearr = bookingdate.split("/")
                 let day = bookingdatearr[0]
                 let month = bookingdatearr[1]
@@ -215,7 +213,6 @@
                 bookingdate = year + "-" + month + "-" + day
                 console.log(bookingdate)
 
->>>>>>> 3d70d47dd902665a97a220ceff60d9aef93ade93
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value

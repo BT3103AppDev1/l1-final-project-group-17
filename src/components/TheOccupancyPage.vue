@@ -40,17 +40,28 @@
             async fetchCurrCount() {
                 let today = new Date().toISOString().split('T')[0]
                 let fulltime = new Date().toISOString().split('T')[1]
+
                 let time = fulltime.split(':')[0].toString() + "00"
 
                 console.log(time)
                 console.log(today)
-                const docRefOccupancy = await doc(db, "2023-04-06", "Occupancy")
+
+                const docRefOccupancy = await doc(db, today, "Occupancy")
                 const occupancyByTime = await getDoc(docRefOccupancy)
                 
                 if (occupancyByTime.exists()) {
                     let count = occupancyByTime.data() 
-                    this.clbOcc = 100*count[time]/800;
+                    let value = 100*count[time]/800;
+
+                    if (isNaN(value)) {
+                        this.clbOcc = 0
+                    } else {
+                        this.clbOcc = value
+                    }
+
+                    console.log(this.clbOcc)
                 }
+
                 return {
                 };
             },

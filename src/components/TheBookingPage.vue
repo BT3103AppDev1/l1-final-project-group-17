@@ -93,8 +93,8 @@
 
 <script>
     import firebaseApp from'../firebase.js';
-    import { getFirestore } from "firebase/firestore";
-    import { collection, getDoc, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore"; //import { query, where, getDocs } from "firebase/firestore"
+    import { FieldValue, getFirestore } from "firebase/firestore";
+    import { collection, getDoc, doc, deleteDoc, addDoc, setDoc, updateDoc } from "firebase/firestore"; //import { query, where, getDocs } from "firebase/firestore"
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
@@ -169,8 +169,8 @@
                 bookingdate = new Date(bookingdate).toLocaleDateString().split('T')[0];
 
                 let bookingdatearr = bookingdate.split("/")
-                let day = bookingdatearr[1]
-                let month = bookingdatearr[0]
+                let day = bookingdatearr[0]
+                let month = bookingdatearr[1]
                 let year = bookingdatearr[2]
 
                 if (day.length == 1) {
@@ -182,8 +182,8 @@
                 }
 
                 bookingdate = year + "-" + month + "-" + day
+                console.log(bookingdate)
 
-                
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
                 let time2 = document.getElementById("time2").value
@@ -205,7 +205,6 @@
                 } 
 
                 //Check if seat is valid
-
                 
                 try {
                     let seatint = parseInt(seat)
@@ -232,6 +231,7 @@
                     }
 
                     seat = seatint
+
                 } catch(error) {
                     alert("Invalid Seat")
                     return
@@ -239,6 +239,7 @@
        
 
                 let seatbooked = false
+
                 try {
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     console.log("ASD")
@@ -277,7 +278,12 @@
                     }
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     const docRefUser = await doc(db, "users", String(this.useremail))
-                    
+
+                    console.log(bookingdate)
+
+                    // how to initialise each date to make occupancy exist
+                    const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
+                  
                     let data = {}
 
                     let timeadd = time1Int
@@ -296,6 +302,38 @@
 
                     await setDoc(docRefBookings, data);
 
+                    //Add to occupancy 
+                    let occupancy = await getDoc(docRefOccupancy)
+                    let dataOcc = {}
+
+                    if (!occupancy) {
+                        await setDoc(docRefOccupancy, {})
+                    }
+
+                    // timeadd starts off as start time 
+                    // time2Int is the endtime
+                    timeadd = time1Int
+                    while (timeadd != time2Int) {
+                        if (timeadd < 1000) {
+                            timeaddstr = "0" + String(timeadd)
+                        } else {
+                            timeaddstr = String(timeadd)
+                        }
+
+                        if (timeaddstr in occupancy.data()) {
+                            let count = occupancy.data()[timeadd]
+                            dataOcc[timeaddstr] = count + 1
+                            // occupancy doc
+                            await updateDoc(docRefOccupancy, dataOcc)
+                        } else {
+                            dataOcc[timeaddstr] = 1
+                            await setDoc(docRefOccupancy, dataOcc).then(() => console.log("successfully updated occupancy!"))
+                        }
+                        timeadd += 100
+                    }
+                    // check
+                    console.log("after")
+                    
                     // Add to user
                     let userbookings = await getDoc(docRefUser)
                     let userbooking = 
@@ -320,6 +358,7 @@
                         )
                     }
 
+
                     this.$router.push({ 
                         name: 'Confirmation',
                         query: {
@@ -332,19 +371,13 @@
                     })
 
                 }
+                
                 catch(error) {
                     console.error("Error adding document: ", error);
                 }
-            
-            },
-
-            gobackbutton() {
-                this.$router.push({ name: 'Home'})
             }
         }
     }
-
-
 </script>
 
 <style scoped>

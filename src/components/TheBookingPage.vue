@@ -190,27 +190,47 @@
                 }
             },
 
+            validUserBooking(booking, time1, time2) {
+                // New booking       .....  
+                // Old Booking     .....   
+                condition1 = booking["time_start"] <= time1 && booking["time_end"] >= time1
+                // New booking    .....             OR    .....
+                // Old booking      .....           OR  ..........
+                condition2 = booking["time_start"] <= time2 && booking["time_end"] >= time2
+                // New booking   ............
+                // Old booking      .....
+                condition3 = booking["time_start"] >= time1 && booking["time_end"] <= time2
+                if (condition1) {
+                    console.log("1")
+                }
+                if (condition2) {
+                    console.log("2")
+                }
+                if (condition3) {
+                    console.log("3")
+                }
+                return condition1 || condition2 || condition3
+            },
+
             async bookseats() {
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
-
-                console.log(bookingdate)
     
-                let bookingdatearr = bookingdate.split("/")
-                let day = bookingdatearr[0]
-                let month = bookingdatearr[1]
-                let year = bookingdatearr[2]
+                // let bookingdatearr = bookingdate.split("-")
+                // let day = bookingdatearr[0]
+                // let month = bookingdatearr[1]
+                // let year = bookingdatearr[2]
 
-                if (day.length == 1) {
-                    day = "0" + day
-                }
+                // if (day.length == 1) {
+                //     day = "0" + day
+                // }
 
-                if (month.length == 1) {
-                    month = "0" + month
-                }
+                // if (month.length == 1) {
+                //     month = "0" + month
+                // }
 
-                bookingdate = year + "-" + month + "-" + day
+                // bookingdate = year + "-" + month + "-" + day
                 console.log(bookingdate)
 
                 //2023-03-27 -> format of bookingdate
@@ -267,6 +287,7 @@
                 }
        
 
+                // Check if the seat is already booked
                 let seatbooked = false
 
                 try {
@@ -298,10 +319,41 @@
                     console.error(error);
                 }
 
+                // Check if user already has a booking at this time
+                let userbooked = false
+
+                try{
+                    const docRefUser = await doc(db, "users", String(this.useremail))
+                    let userbookings = await getDoc(docRefUser)
+
+                    if (userbookings.exists()) {
+                        let userdata = userbookings.data()["bookings"]
+                        console.log("aSDAF")
+                        console.log(userdata)
+
+                        //Filter out different dates
+                        userdata = userdata.filter(booking => booking["date"] == bookingdate)
+                        console.log("aSDAF")
+                        console.log(userdata)
+
+                        userdata = userdata.filter(validUserBooking(booking, time1, time2))
+
+                        if (userdata.length > 0) {
+                            userbooked = true
+                        }
+                    }
+
+                } catch(error) {
+                    console.log(error)
+                }
+
                 try{
                     // Save to db (bookings)
                     if (seatbooked) {
                         alert("Seat is already booked! Please choose another seat or time!")
+                        return
+                    } else if (userbooked) {
+                        alert("You have already booked a seat in this time period!")
                         return
                     }
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
@@ -335,7 +387,9 @@
                     let occupancy = await getDoc(docRefOccupancy)
                     let dataOcc = {}
 
-                    if (!occupancy) {
+                    if (!occupancy.exists()) {
+                        await setDoc(docRefOccupancy, {})
+                    } else if (!occupancy.data()) {
                         await setDoc(docRefOccupancy, {})
                     }
 
@@ -348,6 +402,9 @@
                         } else {
                             timeaddstr = String(timeadd)
                         }
+
+                        console.log(timeaddstr)
+                        console.log(occupancy.data())
 
                         if (timeaddstr in occupancy.data()) {
                             let count = occupancy.data()[timeadd]

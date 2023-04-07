@@ -193,22 +193,13 @@
             validUserBooking(booking, time1, time2) {
                 // New booking       .....  
                 // Old Booking     .....   
-                condition1 = booking["time_start"] <= time1 && booking["time_end"] >= time1
+                let condition1 = booking["time_start"] <= time1 && booking["time_end"] >= time1
                 // New booking    .....             OR    .....
                 // Old booking      .....           OR  ..........
-                condition2 = booking["time_start"] <= time2 && booking["time_end"] >= time2
+                let condition2 = booking["time_start"] <= time2 && booking["time_end"] >= time2
                 // New booking   ............
                 // Old booking      .....
-                condition3 = booking["time_start"] >= time1 && booking["time_end"] <= time2
-                if (condition1) {
-                    console.log("1")
-                }
-                if (condition2) {
-                    console.log("2")
-                }
-                if (condition3) {
-                    console.log("3")
-                }
+                let condition3 = booking["time_start"] >= time1 && booking["time_end"] <= time2
                 return condition1 || condition2 || condition3
             },
 
@@ -295,7 +286,6 @@
                     let seatbookings = await getDoc(docRefBookings)
 
                     if (seatbookings.exists()) {
-                        console.log("exists")
                         let timeadd = time1Int
                         let timestocheck = []
 
@@ -328,15 +318,11 @@
 
                     if (userbookings.exists()) {
                         let userdata = userbookings.data()["bookings"]
-                        console.log("aSDAF")
-                        console.log(userdata)
-
                         //Filter out different dates
                         userdata = userdata.filter(booking => booking["date"] == bookingdate)
-                        console.log("aSDAF")
-                        console.log(userdata)
-
-                        userdata = userdata.filter(validUserBooking(booking, time1, time2))
+                        //Filter out non-clashing times
+                        console.log("CHECK VALID USER BOOKING")
+                        userdata = userdata.filter(booking => this.validUserBooking(booking, time1, time2))
 
                         if (userdata.length > 0) {
                             userbooked = true
@@ -361,9 +347,6 @@
 
                     console.log(bookingdate)
 
-                    // how to initialise each date to make occupancy exist
-                    const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
-                  
                     let data = {}
 
                     let timeadd = time1Int
@@ -384,7 +367,13 @@
                     await setDoc(docRefBookings, data);
 
                     //Add to occupancy 
+                    // how to initialise each date to make occupancy exist
+                    const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
+                  
                     let occupancy = await getDoc(docRefOccupancy)
+                    console.log("OCCUPANCY DATA")
+                    console.log(occupancy.data())
+
                     let dataOcc = {}
 
                     if (!occupancy.exists()) {

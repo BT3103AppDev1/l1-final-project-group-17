@@ -120,6 +120,9 @@
         },
 
         methods: {
+            gobackbutton() {
+                this.$router.push({ name: 'Home',})
+            },
             validDate(){
                 // let today = new Date().toISOString().split('T')[0];
                 let today = new Date()

@@ -44,9 +44,9 @@
         methods: {
             validDate(){
                 let today = new Date().toISOString().split('T')[0];
-                let three_days_from_today = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                let two_days_from_today = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
                 document.getElementById("bookingdate1").setAttribute('min', today);
-                document.getElementById("bookingdate1").setAttribute('max', three_days_from_today)
+                document.getElementById("bookingdate1").setAttribute('max', two_days_from_today)
 	        },
 
             gobackbutton() {

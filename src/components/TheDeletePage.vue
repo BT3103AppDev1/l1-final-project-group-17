@@ -34,7 +34,7 @@
 <script>
     import firebaseApp from'../firebase.js';
     import { deleteField, getFirestore, updateDoc } from "firebase/firestore";
-    import { collection, getDocs, doc, deleteDoc, FieldValue, arrayRemove } from "firebase/firestore";
+    import { collection, getDoc, doc, deleteDoc, FieldValue, arrayRemove } from "firebase/firestore";
     import {getAuth, onAuthStateChanged} from "firebase/auth";
     const db = getFirestore(firebaseApp);
     
@@ -97,6 +97,19 @@
                     console.log(bookingRef)
                     updateDoc(bookingRef, {
                         [time]: deleteField()
+                    });
+                });
+
+                let path1 = this.booking.date + "/" + "Occupancy"
+                timeStamps.forEach(function (time) {
+                    console.log(time)
+                    const occupancyRef = doc(db, path1);
+                    console.log(occupancyRef)
+                    let count = occupancyRef.FieldValue
+                    console.log("HERE")
+                    console.log(count) //UNDEFINED
+                    updateDoc(occupancyRef, {
+                        [time]: count - 1
                     });
                 });
                 

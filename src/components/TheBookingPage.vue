@@ -370,23 +370,25 @@
                     await setDoc(docRefBookings, data);
 
                     //Add to occupancy 
-                    // how to initialise each date to make occupancy exist
                     const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
-                  
-                    let occupancy = await getDoc(docRefOccupancy)
-                    console.log("OCCUPANCY DATA")
-                    console.log(occupancy.data())
-
                     let dataOcc = {}
 
-                    if (!occupancy.exists()) {
-                        await setDoc(docRefOccupancy, {})
-                    } else if (!occupancy.data()) {
-                        await setDoc(docRefOccupancy, {})
-                    }
+                    //how to initialise occupancy for each date
+                    //occupancy doc resets 
+                    //console.log("HEREEE" + occupancy.exists())
+
+                    //if (!occupancy.exists()) {
+                        //await setDoc(docRefOccupancy, {})
+                    //} 
+                    //if (!occupancy.data()) {
+                        //await setDoc(docRefOccupancy, {})
+                    //}
 
                     // timeadd starts off as start time 
                     // time2Int is the endtime
+
+                    let occupancy = await getDoc(docRefOccupancy)
+
                     timeadd = time1Int
                     while (timeadd != time2Int) {
                         if (timeadd < 1000) {
@@ -395,17 +397,18 @@
                             timeaddstr = String(timeadd)
                         }
 
-                        console.log(timeaddstr)
-                        console.log(occupancy.data())
-
-                        if (timeaddstr in occupancy.data()) {
-                            let count = occupancy.data()[timeadd]
+                        if (!occupancy.exists()) {
+                            dataOcc[timeaddstr] = 1
+                            await setDoc(docRefOccupancy, dataOcc) 
+                  
+                        } else if (timeaddstr in occupancy.data()) {
+                            let count = occupancy.data()[timeaddstr]
                             dataOcc[timeaddstr] = count + 1
-                            // occupancy doc
-                            await updateDoc(docRefOccupancy, dataOcc)
+                            await setDoc(docRefOccupancy, dataOcc, { merge:true }) 
+      
                         } else {
                             dataOcc[timeaddstr] = 1
-                            await setDoc(docRefOccupancy, dataOcc).then(() => console.log("successfully updated occupancy!"))
+                            await setDoc(docRefOccupancy, dataOcc, { merge:true }) 
                         }
                         timeadd += 100
                     }

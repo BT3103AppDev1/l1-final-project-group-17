@@ -34,7 +34,7 @@
 <script>
     import firebaseApp from'../firebase.js';
     import { deleteField, getFirestore, updateDoc } from "firebase/firestore";
-    import { collection, getDoc, doc, deleteDoc, FieldValue, arrayRemove } from "firebase/firestore";
+    import { collection, getDoc, setDoc, doc, deleteDoc, FieldValue, arrayRemove } from "firebase/firestore";
     import {getAuth, onAuthStateChanged} from "firebase/auth";
     const db = getFirestore(firebaseApp);
     
@@ -87,6 +87,21 @@
                     timeadd += 100
                 }
 
+                let path0 = this.booking.date + "/" + "Occupancy"
+                const occupancyRef = doc(db, path0);
+                let occupancy = getDoc(occupancyRef)
+
+                timeStamps.forEach(function (time) {
+                    // count UNDEFINED!! i cant get it 
+                    // let count = occupancy[time] 
+                    let count = 10
+                    //console.log("HERE " + count)
+                    updateDoc(occupancyRef, {
+                        [time]: count - 1
+                    });
+                });
+
+
                 console.log(timeStamps)
                 let path = this.booking.date + "/" + this.booking.library + "/" + this.booking.level + "/" + this.booking.seat
                 console.log(path)
@@ -99,20 +114,6 @@
                         [time]: deleteField()
                     });
                 });
-
-                let path1 = this.booking.date + "/" + "Occupancy"
-                timeStamps.forEach(function (time) {
-                    console.log(time)
-                    const occupancyRef = doc(db, path1);
-                    console.log(occupancyRef)
-                    let count = occupancyRef.FieldValue
-                    console.log("HERE")
-                    console.log(count) //UNDEFINED
-                    updateDoc(occupancyRef, {
-                        [time]: count - 1
-                    });
-                });
-                
                 
                 let path2 = "users/" + String(this.useremail)
                 console.log(path2)

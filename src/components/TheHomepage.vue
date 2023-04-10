@@ -1,7 +1,42 @@
 <template>
-    <h1 id = "Current">My Current Booking</h1> <br><br>
+    <h1 id = "Current">My Current Booking</h1> 
 
-    <button id = "im_here" type = "button" v-on:click="imHere">I'm Here </button><br><br>
+    <table id = "current_table" class = "auto-index">
+        <tr>
+            
+            <th>Location</th>
+            <th>Level</th>
+            <th>Seat Number</th>
+            <th>Date</th>
+            <th>Time Start</th>
+            <th>Time End</th>
+            <th>End Early?</th>
+            
+
+        </tr>
+
+
+
+        <tr v-for="(row, index) in tableRows" :key="row.library">
+                
+                <td>{{ row.library }}</td>
+                <td>{{ row.level }}</td>
+                <td>{{ row.seat }}</td>
+                <td>{{ row.date }}</td>
+                <td>{{ row.time_start }}</td>
+                <td>{{ row.time_end }}</td>
+                <td>
+                    <p id = "endEarlyButton" @click="deleteBooking(row, useremail)"><u>Yes</u></p>
+                </td>
+            </tr>
+
+
+
+
+
+    </table><br><br>
+
+    <button id = "im_here" type = "button">I'm Here </button><br><br>
 
     <h1 id = "Upcoming">My Upcoming Bookings</h1>
 
@@ -103,6 +138,35 @@
                 console.log(today)
       
                 return today <= bookingdate;
+            },
+
+            currentDate(booking) {
+                let year = booking.date.substring(0, 4)
+                let monthIndex = booking.date.substring(5, 7) - 1
+                let day = booking.date.substring(8)
+
+                let today = new Date()
+                let bookingdate = new Date(year, monthIndex, day, 23, 59, 59);
+                console.log("booking date")
+                console.log(bookingdate)
+                console.log("today")
+                console.log(today)
+      
+                //changed to only today and bookingdate same
+                return today == bookingdate;
+
+            },
+
+            async fetchCurrentBooking(useremail) {
+                const docRefUser = await doc(db, "users", useremail)
+                let userbookings = await getDoc(docRefUser)
+                let userdata = userbookings.data()["bookings"]
+
+                //filter by only bookings on that day
+                userdata = userdata.filter(this.currentDate)
+
+         
+
             },
  
 

@@ -130,23 +130,6 @@
                 this.$router.push({ name: 'Home' })
 
 
-                /*
-                userbooking : 
-                    {date: "2023-04-04",
-                    library: "clb",
-                    level: "level5",
-                    seat: "22",
-                    time_start: "1200",
-                    time_end: "1700"}
-
-
-                    let CID = "2dfPipFRKiB6TAKab4jv8";
-                    let LID = "352oIP3fdc6IIvuBbajR0";
-
-                    await db.collection('users').doc(UID).update( {
-                    [`CourseList.${CID}.LectureList.${LID}`]: FieldValue.delete() 
-} )
-                */
             }
         }
     }

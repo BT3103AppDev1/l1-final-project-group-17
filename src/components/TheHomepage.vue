@@ -62,7 +62,11 @@
                 <td>{{ row.time_start }}</td>
                 <td>{{ row.time_end }}</td>
                 <td>
-                    <p id = "deleteButton" @click="deleteBooking(row, useremail)"><u>Delete</u></p>
+                    <div style="display:flex;flex-direction: row;">
+                        <p id = "editButton" @click="editBooking(row, useremail)"><u>Edit</u></p>
+                        <p> | </p>
+                        <p id = "deleteButton" @click="deleteBooking(row, useremail)"><u>Delete</u></p>
+                    </div>
                 </td>
             </tr>
         
@@ -213,17 +217,26 @@
         },
 
         async deleteBooking(library, user) {
-                this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(library)}})
-            },
-        
-            reload() {
-                window.location.reload()
-            }
+            this.$router.push({ name: 'Delete', params:{booking: JSON.stringify(library)}})
+        },
 
-        
+        async editBooking(library, user) {
+            this.$router.push({ name: 'Edit', params:{booking: JSON.stringify(library)}})
+        },
 
+
+
+
+        reload() {
+            window.location.reload()
         }
+
+        
+
+        
+
     }
+}
 </script>
 
 <style scoped>

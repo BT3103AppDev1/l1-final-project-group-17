@@ -160,8 +160,27 @@
                 }
 
                 today = year + "-" + month + "-" + day
+
+                let currTime = ["08", "45", "00"]
+                let currHour = currTime[0] + "00"
+
+                console.log("booking date")
+                console.log(booking.date)
+                console.log("today")
+                console.log(today)
+
+                let bookingIsUpcoming = false
+
+                if (today < booking.date) {
+                    bookingIsUpcoming = true 
+                } else if (today == booking.date) {
+                    if (booking.time_start > currHour) {
+                        bookingIsUpcoming = true
+                    }
+                }
       
-                return today < booking.date;
+                //changed to only today and bookingdate same
+                return bookingIsUpcoming;
             },
 
             currentDate(booking) {
@@ -178,15 +197,30 @@
                 }
 
                 today = year + "-" + month + "-" + day
+                //let currTime = new Date().toString().split(" ")[4].split(":")
+                let currTime = ["08", "45", "00"]
+                let currHour = currTime[0] + "00"
 
-                console.log("!!!!!!")
                 console.log("booking date")
                 console.log(booking.date)
                 console.log("today")
                 console.log(today)
+
+                let bookingIsNow = false
+
+                if (today == booking.date) {
+                    //if time within the booking start and end time
+                    if (currHour >= booking.time_start && currHour < booking.time_end) {
+                        bookingIsNow = true
+                       //appear 15 mins before the start time
+                    } else if (parseInt(booking.time_start) - 100 == parseInt(currHour)) {
+                        if (currTime[1] >= "45")
+                        bookingIsNow = true
+                    }
+                }
       
                 //changed to only today and bookingdate same
-                return today == booking.date;
+                return bookingIsNow;
 
             },
 

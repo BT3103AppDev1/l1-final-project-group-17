@@ -1,24 +1,22 @@
 <template>
-    <h1 id = "Current">My Current Booking</h1> 
+    <h1 id = "Current">Today's Bookings</h1> 
 
     <table id = "current_table" class = "auto-index">
         <tr>
             
+            <th>Booking No.</th>
             <th>Location</th>
             <th>Level</th>
             <th>Seat Number</th>
             <th>Date</th>
             <th>Time Start</th>
             <th>Time End</th>
-            <th>End Early?</th>
+            <th>Options</th>
             
-
         </tr>
 
-
-
-        <tr v-for="(row, index) in tableRows" :key="row.library">
-                
+        <tr v-for="(row, index) in current_tableRows" :key="row.library">
+                <td>{{ index + 1 }}</td>
                 <td>{{ row.library }}</td>
                 <td>{{ row.level }}</td>
                 <td>{{ row.seat }}</td>
@@ -26,13 +24,9 @@
                 <td>{{ row.time_start }}</td>
                 <td>{{ row.time_end }}</td>
                 <td>
-                    <p id = "endEarlyButton" @click="deleteBooking(row, useremail)"><u>Yes</u></p>
+                    <p id = "deleteButton" @click="deleteBooking(row, useremail)"><u>Delete</u></p>
                 </td>
             </tr>
-
-
-
-
 
     </table><br><br>
 
@@ -93,7 +87,9 @@
         data () {
             return {
                 useremail : '',
+                current_tableRows : [],
                 tableRows : [],
+                
             };
         },
 
@@ -111,7 +107,9 @@
                 console.log(this.useremail)
                 await delay(100);  //delay if no useremail yet
             }
+            await this.fetchCurrentBooking(this.useremail);
             await this.fetchAndUpdateData(this.useremail);
+            
         },
 
 
@@ -126,34 +124,46 @@
 
 
             validDate(booking) {    
-                let year = booking.date.substring(0, 4)
-                let monthIndex = booking.date.substring(5, 7) - 1
-                let day = booking.date.substring(8)
-
                 let today = new Date()
-                let bookingdate = new Date(year, monthIndex, day, 23, 59, 59);
-                console.log("booking date")
-                console.log(bookingdate)
-                console.log("today")
-                console.log(today)
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                today = year + "-" + month + "-" + day
       
-                return today <= bookingdate;
+                return today < booking.date;
             },
 
             currentDate(booking) {
-                let year = booking.date.substring(0, 4)
-                let monthIndex = booking.date.substring(5, 7) - 1
-                let day = booking.date.substring(8)
-
                 let today = new Date()
-                let bookingdate = new Date(year, monthIndex, day, 23, 59, 59);
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                today = year + "-" + month + "-" + day
+
+                console.log("!!!!!!")
                 console.log("booking date")
-                console.log(bookingdate)
+                console.log(booking.date)
                 console.log("today")
                 console.log(today)
       
                 //changed to only today and bookingdate same
-                return today == bookingdate;
+                return today == booking.date;
 
             },
 
@@ -163,7 +173,32 @@
                 let userdata = userbookings.data()["bookings"]
 
                 //filter by only bookings on that day
-                userdata = userdata.filter(this.currentDate)
+                let userdataC = userdata.filter(this.currentDate)
+
+                this.current_tableRows = await Promise.all(
+                    userdataC.map(async (doc) => {
+                    
+                   
+
+                    let library = doc.library;
+                    let level = doc.level;
+                    let seat = doc.seat;
+                    let date = doc.date;
+                    let time_start = doc.time_start;
+                    let time_end = doc.time_end;
+                    
+                    
+                    return {
+                        library,
+                        level,
+                        seat,
+                        date,
+                        time_start,
+                        time_end, 
+                    };
+                }),
+
+            );
 
          
 
@@ -176,9 +211,9 @@
             const docRefUser = await doc(db, "users", useremail)
             let userbookings = await getDoc(docRefUser)
             let userdata = userbookings.data()["bookings"]
-            userdata = userdata.filter(this.validDate)
+            let userdataV = userdata.filter(this.validDate)
 
-            console.log(userdata)
+            console.log(userdataV)
 
             console.log(new Date())
 
@@ -187,7 +222,7 @@
             // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
 
             this.tableRows = await Promise.all(
-                userdata.map(async (doc) => {
+                userdataV.map(async (doc) => {
                     
                    
 

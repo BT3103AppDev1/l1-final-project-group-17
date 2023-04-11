@@ -481,7 +481,7 @@
     }
 
     form {
-        text-align: right;
+        text-align: center;
         align-items: center;
         margin: auto;
     }

@@ -208,7 +208,6 @@
 
             },
  
-
             async fetchAndUpdateData(useremail) {
 
 
@@ -259,17 +258,57 @@
             this.$router.push({ name: 'Edit', params:{booking: JSON.stringify(library)}})
         },
 
+        async imHere(useremail) {
+                let today = new Date() 
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
 
+                if (day.length == 1) {
+                    day = "0" + day 
+                } 
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+                today = year + "-" + month + "-" + day
 
+                const docRefUser = await doc(db, "users", useremail)
+                let userbookings = await getDoc(docRefUser)
+                let userdata = userbookings.data()["bookings"]
+                let todaybooking = userdata.filter(userdata["date"] == today)
+                
+                for (booking in todaybooking) {
+                    todaybooking["present"] = true
+                } 
+            },
+
+            async endBookingEarly(useremail) {
+                let today = new Date() 
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day 
+                } 
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+                today = year + "-" + month + "-" + day
+
+                const docRefUser = await doc(db, "users", useremail)
+                let userbookings = await getDoc(docRefUser)
+                let userdata = userbookings.data()["bookings"]
+                let todaybooking = userdata.filter(userdata["date"] == today)
+                
+                for (booking in todaybooking) {
+                    todaybooking["present"] = false
+                } 
+            },
 
         reload() {
             window.location.reload()
         }
-
-        
-
-        
-
     }
 }
 </script>

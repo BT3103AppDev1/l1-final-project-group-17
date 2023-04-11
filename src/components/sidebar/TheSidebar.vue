@@ -33,7 +33,7 @@ export default {
 
     <SidebarLink to="/Occupancy" @click="toggleSidebar">Occupancy</SidebarLink>
 
-    <SidebarLink to="/Notifications" @click="toggleSidebar">Notifications</SidebarLink>
+    <!-- <SidebarLink to="/Notifications" @click="toggleSidebar">Notifications</SidebarLink> -->
 
     <br><br>
     

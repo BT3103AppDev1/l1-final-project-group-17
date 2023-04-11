@@ -93,7 +93,7 @@
 
                 timeStamps.forEach(function (time) {
                     // count UNDEFINED!! i cant get it 
-                    // let count = occupancy[time] 
+                    // let count = occupancy.data()[time] 
                     let count = 10
                     //console.log("HERE " + count)
                     updateDoc(occupancyRef, {

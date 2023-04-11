@@ -30,7 +30,9 @@
 
     </table><br><br>
 
-    <button id = "im_here" type = "button">I'm Here </button><br><br>
+   
+    
+    <button id = "im_here" type = "button" @click = changeText>{{ buttonText }}</button><br><br>
 
     <h1 id = "Upcoming">My Upcoming Bookings</h1>
 
@@ -93,6 +95,7 @@
                 useremail : '',
                 current_tableRows : [],
                 tableRows : [],
+                buttonText : "I'm Here"
                 
             };
         },
@@ -126,6 +129,14 @@
                 this.$router.push({ name: 'Occupancy' })
             },
 
+            changeText() {
+                    if (this.buttonText === "I'm Here") {
+                        this.buttonText = "End Booking Early";
+                    } else {
+                        this.buttonText = "I'm Here";
+                    }
+                    },
+  
 
             validDate(booking) {    
                 let today = new Date()

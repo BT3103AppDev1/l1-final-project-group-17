@@ -60,8 +60,8 @@
                 let seats = new Map()
 
                 let tablelength = table.rows.length;
-                for (var i = tablelength - 1; i > 0; i--) {
-                    table.deleteRow(i)
+                for (var i = 1; i < tablelength; i++) {
+                    table.deleteRow(1)
                 }
 
                 allDocuments.forEach((docs) => {

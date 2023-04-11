@@ -1,5 +1,5 @@
 <template>
-    <h1 id = "Current">Today's Bookings</h1> 
+    <h1 id = "Current">Current Bookings</h1> 
 
     <table id = "current_table" class = "auto-index">
         <tr>

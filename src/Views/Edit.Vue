@@ -1,7 +1,7 @@
 <template>
     <div id = "main">
         <div id = "head">
-            <TheSideBar />
+            <TheSideBar/>
             <h1>Edit This Booking?</h1>
         </div>
         <TheEditPage/>

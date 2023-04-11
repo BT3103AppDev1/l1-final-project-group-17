@@ -32,7 +32,7 @@
 
    
     
-    <button id = "im_here" type = "button" @click = changeText>{{ buttonText }}</button><br><br>
+    <button id = "im_here" type = "button" @click = buttonClicked>{{ buttonText }}</button><br><br>
 
     <h1 id = "Upcoming">My Upcoming Bookings</h1>
 
@@ -135,8 +135,16 @@
                     } else {
                         this.buttonText = "I'm Here";
                     }
-                    },
-  
+            },
+
+            buttonClicked() {
+                this.changeText()
+                this.imHere(this.useremail)
+
+            },
+
+                    
+
 
             validDate(booking) {    
                 let today = new Date()

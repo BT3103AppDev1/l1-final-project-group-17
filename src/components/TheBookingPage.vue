@@ -423,7 +423,9 @@
                         level: level,
                         seat: seat,
                         time_start: time1,
-                        time_end: time2}
+                        time_end: time2,
+                        present: false
+                    }
 
                     console.log("Set in user")
                     console.log(userbooking)
@@ -449,7 +451,9 @@
                             level: level,
                             seat: seat,
                             time_start: time1,
-                            time_end: time2}
+                            time_end: time2, 
+                            present: false
+                        }
                     })
 
                 }

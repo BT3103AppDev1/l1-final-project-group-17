@@ -450,14 +450,8 @@
                             level: level,
                             seat: seat,
                             time_start: time1,
-<<<<<<< HEAD
                             time_end: time2,
                             present: false}
-=======
-                            time_end: time2, 
-                            present: false
-                        }
->>>>>>> 1f8463c4dff15537e2fd0fdede21659566c095d4
                     })
 
                 }

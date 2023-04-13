@@ -137,12 +137,6 @@
                     }
             },
 
-            buttonClicked() {
-                this.changeText()
-                this.imHere(this.useremail)
-
-            },
-
                     
 
 
@@ -243,6 +237,7 @@
                     let date = doc.date;
                     let time_start = doc.time_start;
                     let time_end = doc.time_end;
+                    let present = false;
                     
                     
                     return {
@@ -252,6 +247,7 @@
                         date,
                         time_start,
                         time_end, 
+                        present
                     };
                 }),
 
@@ -288,6 +284,7 @@
                     let date = doc.date;
                     let time_start = doc.time_start;
                     let time_end = doc.time_end;
+                    let present = false;
                     
                     
                     return {
@@ -297,6 +294,7 @@
                         date,
                         time_start,
                         time_end, 
+                        present
                     };
                 }),
 
@@ -357,6 +355,12 @@
                 for (booking in todaybooking) {
                     todaybooking["present"] = false
                 } 
+            },
+
+            buttonClicked() {
+                this.changeText()
+                this.imHere(this.useremail)
+
             },
 
         reload() {

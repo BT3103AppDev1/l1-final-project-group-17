@@ -8,8 +8,7 @@
                 <h3>Log in to your account</h3>
                 <div id = "firebaseui-auth-container"></div>
                 
-                <h5>Don't have an account yet?</h5>
-                <h5>Register one with us!</h5>
+                
             </div>
         </div>
     </body>

@@ -29,8 +29,6 @@
             </tr>
 
     </table><br><br>
-
-   
     
     <button id = "im_here" type = "button" @click = buttonClicked>{{ buttonText }}</button><br><br>
 
@@ -130,10 +128,12 @@
             },
 
             changeText() {
-                    if (this.buttonText === "I'm Here") {
+                    if (this.buttonText == "I'm Here") {
                         this.buttonText = "End Booking Early";
+                        this.imHere(this.$rootuseremail)
                     } else {
                         this.buttonText = "I'm Here";
+                        this.endBookingEarly(this.useremail)
                     }
             },
 
@@ -154,6 +154,7 @@
                 }
 
                 today = year + "-" + month + "-" + day
+                //let currTime = new Date().toString().split(" ")[4].split(":")
 
                 let currTime = ["08", "45", "00"]
                 let currHour = currTime[0] + "00"
@@ -191,7 +192,7 @@
                 }
 
                 today = year + "-" + month + "-" + day
-                //let currTime = new Date().toString().split(" ")[4].split(":")
+                // let currTime = new Date().toString().split(" ")[4].split(":")
                 let currTime = ["08", "45", "00"]
                 let currHour = currTime[0] + "00"
 
@@ -252,9 +253,6 @@
                 }),
 
             );
-
-         
-
             },
  
             async fetchAndUpdateData(useremail) {

@@ -81,7 +81,7 @@
 <script>
     import firebaseApp from '../firebase.js';
     import { getFirestore } from 'firebase/firestore';
-    import { collection, getDoc, getDocs, doc, deleteDoc } from 'firebase/firestore';
+    import { collection, getDoc, getDocs, doc, deleteDoc, setDoc } from 'firebase/firestore';
     import {getAuth, onAuthStateChanged} from "firebase/auth";
 
     const db = getFirestore(firebaseApp);
@@ -321,14 +321,34 @@
                 }
                 today = year + "-" + month + "-" + day
 
+                let currentbooking = document.getElementById("current_table").rows[1]
+                console.log(currentbooking)
+
                 const docRefUser = await doc(db, "users", useremail)
                 let userbookings = await getDoc(docRefUser)
                 let userdata = userbookings.data()["bookings"]
-                let todaybooking = userdata.filter(userdata["date"] == today)
+                let todaybooking = userdata.filter(this.currentDate)[0]
+
+
                 
-                for (booking in todaybooking) {
-                    todaybooking["present"] = true
-                } 
+                console.log("Before change: ", userdata.length)
+                console.log(userdata)
+
+                for (let i = 0; i < userdata.length; i++) {
+                    if (userdata[i] == todaybooking){
+                        console.log("The booking before:")
+                        console.log(userdata[i])
+
+                        userdata[i]["present"] = true
+                        console.log("The booking after:")
+                        console.log(userdata[i])
+                    }
+                }
+
+                await setDoc(docRefUser,
+                            {bookings: userdata}
+                            )
+ 
             },
 
             async endBookingEarly(useremail) {

@@ -106,6 +106,7 @@
                 if (user) {
                     this.user = user
                     this.useremail = user.email
+                    this.pres = false //sus
                 }
             })
             while (!this.useremail) {
@@ -127,17 +128,28 @@
                 this.$router.push({ name: 'Occupancy' })
             },
 
+            //doesnt work yet
             changeText() {
-                    if (this.buttonText == "I'm Here") {
+                if (this.present == false ) {
+                    this.buttonText = "I'm Here";
+                    this.imHere(this.useremail)
+                    this.pres = true
+                } else {
+                    this.buttonText = "End Booking Early";
+                    this.endBookingEarly(this.useremail)
+                    this.pres = false
+                }
+            },
+
+            buttonClicked() {
+                if (this.buttonText == "I'm Here") {
                         this.buttonText = "End Booking Early";
-                        this.imHere(this.$rootuseremail)
+                        this.imHere(this.useremail)
                     } else {
                         this.buttonText = "I'm Here";
                         this.endBookingEarly(this.useremail)
-                    }
+                    }              
             },
-
-                    
 
 
             validDate(booking) {    
@@ -368,19 +380,24 @@
                 const docRefUser = await doc(db, "users", useremail)
                 let userbookings = await getDoc(docRefUser)
                 let userdata = userbookings.data()["bookings"]
-                let todaybooking = userdata.filter(userdata["date"] == today)
+                let todaybooking = userdata.filter(this.currentDate)[0]
+
+                for (let i = 0; i < userdata.length; i++) {
+                    if (userdata[i] == todaybooking){
+                        console.log("The booking before:")
+                        console.log(userdata[i])
+
+                        userdata[i]["present"] = false
+                        console.log("The booking after:")
+                        console.log(userdata[i])
+                    }
+                }
+
+                await setDoc(docRefUser,
+                            {bookings: userdata}
+                            )
                 
-                for (booking in todaybooking) {
-                    todaybooking["present"] = false
-                } 
             },
-
-            buttonClicked() {
-                this.changeText()
-                this.imHere(this.useremail)
-
-            },
-
         reload() {
             window.location.reload()
         }

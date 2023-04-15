@@ -39,7 +39,6 @@
         width: 100%;
     }
 
-@media (min-width: 1024px) {
     header {
         display: flex;
         place-items: center;
@@ -59,5 +58,4 @@
     html * {
         font-family: Montserrat;
     }
-}
 </style>

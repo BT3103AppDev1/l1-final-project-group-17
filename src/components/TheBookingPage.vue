@@ -1,91 +1,99 @@
 <template >
-    <h1> New Booking </h1>
-    <div class = "container">
-        <form id = "myform">
-            <div class = "formli">
-                <label for = "library1">Library</label> <br>
-                <select name = "library1" id = "library1" v-on:click="updatePicture">
-                    <option value = "select">--Select an option--</option>
-                    <option value = "Central Library">Central Library</option>
-                </select>
+    <!-- <h1> New Booking </h1> -->
+    <div id = "main">
+        <div class = "container">
+            <form id = "myform">
+                <div class = "formli">
+                    <label for = "library1">Library</label> <br>
+                    <select name = "library1" id = "library1" v-on:click="updatePicture">
+                        <option value = "select">--Select an option--</option>
+                        <option value = "Central Library">Central Library</option>
+                    </select>
 
-                <br>
+                    <br>
 
-                <label for = "level1">Level</label> <br>
-                <select name = "level1" id = "level1" v-on:click="updatePicture">
-                    <option value = "select">--Select an option--</option>
-                    <option value = "Level 5">Level 5</option>
-                    <option value = "Level 6">Level 6</option>
-                    <option value = "Level 6 (Chinese Library)">Level 6 (Chinese Library)</option>
-                </select>
+                    <label for = "level1">Level</label> <br>
+                    <select name = "level1" id = "level1" v-on:click="updatePicture">
+                        <option value = "select">--Select an option--</option>
+                        <option value = "Level 5">Level 5</option>
+                        <option value = "Level 6">Level 6</option>
+                        <option value = "Level 6 (Chinese Library)">Level 6 (Chinese Library)</option>
+                    </select>
 
-                <br>
+                    <br>
 
-                <label for = "bookingdate1">Date</label> <br>
-                    <input type = "date" id = "bookingdate1" name = "bookingdate1" v-on:click="validDate">
-                <br>
+                    <label for = "bookingdate1">Date</label> <br>
+                        <input type = "date" id = "bookingdate1" name = "bookingdate1" v-on:click="validDate">
+                    <br>
 
-                <div id = "timeselect">
-                    <div id = "time1div">
-                        <label for = "time1">Time Start</label> <br>
-                        <select name = "time1" id = "time1" v-on:click="updateStart">
-                            <option value = "select">--Select an option--</option>
-                            <option value = "0900">0900</option>
-                            <option value = "1000">1000</option>
-                            <option value = "1100">1100</option>
-                            <option value = "1200">1200</option>
-                            <option value = "1300">1300</option>
-                            <option value = "1400">1400</option>
-                            <option value = "1500">1500</option>
-                            <option value = "1600">1600</option>
-                            <option value = "1700">1700</option>
-                            <option value = "1800">1800</option>
-                            <option value = "1900">1900</option>
-                            <option value = "2000">2000</option>
-                        </select>
+                    <div id = "timeselect">
+                        <div id = "time1div">
+                            <label for = "time1">Time Start</label> <br>
+                            <select name = "time1" id = "time1" v-on:click="updateStart">
+                                <option value = "select">--Select an option--</option>
+                                <option value = "0900">0900</option>
+                                <option value = "1000">1000</option>
+                                <option value = "1100">1100</option>
+                                <option value = "1200">1200</option>
+                                <option value = "1300">1300</option>
+                                <option value = "1400">1400</option>
+                                <option value = "1500">1500</option>
+                                <option value = "1600">1600</option>
+                                <option value = "1700">1700</option>
+                                <option value = "1800">1800</option>
+                                <option value = "1900">1900</option>
+                                <option value = "2000">2000</option>
+                            </select>
+                        </div>
+
+                        <div id = "time2div">
+                            <label for = "time2" v-if="startTimeEntered">Time End</label> <br>
+                            <select name = "time2" id = "time2" v-if="startTimeEntered" v-on:click="validTime">
+                                <option value = "select">--Select an option--</option>
+                                <option id = "1000" value = "1000">1000</option>
+                                <option id = "1100" value = "1100">1100</option>
+                                <option id = "1200" value = "1200">1200</option>
+                                <option id = "1300" value = "1300">1300</option>
+                                <option id = "1400" value = "1400">1400</option>
+                                <option id = "1500" value = "1500">1500</option>
+                                <option id = "1600" value = "1600">1600</option>
+                                <option id = "1700" value = "1700">1700</option>
+                                <option id = "1800" value = "1800">1800</option>
+                                <option id = "1900" value = "1900">1900</option>
+                                <option id = "2000" value = "2000">2000</option>
+                                <option id = "2100" value = "2100">2100</option>
+                            </select>
+                        </div>
                     </div>
+                    
+                    <label for = "seat">Seat</label> <br>
+                    <input type="number" id = "seat" required="" placeholder = "Enter seat number">
+                    <br><br>
 
-                    <div id = "time2div">
-                        <label for = "time2" v-if="startTimeEntered">Time End</label> <br>
-                        <select name = "time2" id = "time2" v-if="startTimeEntered" v-on:click="validTime">
-                            <option value = "select">--Select an option--</option>
-                            <option id = "1000" value = "1000">1000</option>
-                            <option id = "1100" value = "1100">1100</option>
-                            <option id = "1200" value = "1200">1200</option>
-                            <option id = "1300" value = "1300">1300</option>
-                            <option id = "1400" value = "1400">1400</option>
-                            <option id = "1500" value = "1500">1500</option>
-                            <option id = "1600" value = "1600">1600</option>
-                            <option id = "1700" value = "1700">1700</option>
-                            <option id = "1800" value = "1800">1800</option>
-                            <option id = "1900" value = "1900">1900</option>
-                            <option id = "2000" value = "2000">2000</option>
-                            <option id = "2100" value = "2100">2100</option>
-                        </select>
-                    </div>
                 </div>
-                
-                <label for = "seat">Seat</label> <br>
-                <input type="number" id = "seat" required="" placeholder = "Enter seat number">
-                <br><br>
+            </form>
 
-            </div>
-        </form>
-
-        <div class = "picture">
-                <img src = "@/assets/clb_level_6.jpg" alt="Seating plan not found" v-if="clblevel6">
-                <img src = "@/assets/clb_level_5.jpg" alt="Seating plan not found" v-if="clblevel5">
-                <img src = "@/assets/clb_chinese_6.jpg" alt="Seating plan not found" v-if="clbchinese">
-        </div>  
-    </div>
-
-    <div class = "buttons">
-        <div class = "checkseats">
-            <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Book Seat</button>
+            <div id = "pictures">
+                <div class = "picture" v-if= "clblevel5">
+                    <TheFloorplanCLB5Vue />
+                </div>
+                <div class = "picture" v-if= "clblevel6">
+                    <TheFloorplanCLB6Vue />
+                </div>
+                <div class = "picture" v-if= "clbchinese">
+                    <TheFloorplanCN6Vue />
+                </div>
+            </div>   
         </div>
 
-        <div class = "back">
-            <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
+        <div class = "buttons">
+            <div class = "checkseats">
+                <button id = "checkseatsbutton" type = "button" v-on:click="bookseats">Book Seat</button>
+            </div>
+
+            <div class = "back">
+                <button id = "backbutton" type = "button" v-on:click="gobackbutton">Back</button>
+            </div>
         </div>
     </div>
 
@@ -96,10 +104,18 @@
     import { FieldValue, getFirestore } from "firebase/firestore";
     import { collection, getDoc, doc, deleteDoc, addDoc, setDoc, updateDoc } from "firebase/firestore"; //import { query, where, getDocs } from "firebase/firestore"
     import {getAuth, onAuthStateChanged} from "firebase/auth";
+    import TheFloorplanCLB5Vue from '../components/TheFloorplanCLB5.vue'
+    import TheFloorplanCLB6Vue from '../components/TheFloorplanCLB6.vue'
+    import TheFloorplanCN6Vue from '../components/TheFloorplanCN6.vue'
 
     const db = getFirestore(firebaseApp);
 
     export default {
+        components:{
+            TheFloorplanCLB5Vue,
+            TheFloorplanCLB6Vue,
+            TheFloorplanCN6Vue
+        },
         data() {
             return {
                 startTimeEntered: false,
@@ -574,5 +590,9 @@
     #backbutton:hover {
         transition: 0.3s;
         background-color:#5c96cf;
+    }
+
+    #main {
+        float: left;
     }
 </style>

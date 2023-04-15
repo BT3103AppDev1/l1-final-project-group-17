@@ -1,15 +1,18 @@
 <template>
-    <div id="main">
+    <div id = "main">
+        <h1> New Booking </h1>
         <TheBookingPageVue />
-    </div>
-    <div id = "sidebar"> 
-        <TheSidebarVue />
+        <div id = "sidebar"> 
+            <TheSidebarVue />
+        </div>
+        <br>
     </div>
 </template>
 
 <script>
     import TheBookingPageVue from '@/components/TheBookingPage.vue'
     import TheSidebarVue from '@/components/sidebar/TheSidebar.vue'
+
     export default {
         name: 'App',
         components:{
@@ -19,7 +22,7 @@
     }
 </script>
 
-<style scoped>    
+<style>    
     header {
         line-height: 1.5;
     }
@@ -32,13 +35,6 @@
     #head {
         display: flex;
         width: 50%;
-    }
-
-@media (min-width: 1024px) {
-    header {
-        display: flex;
-        place-items: center;
-        padding-right: calc(var(--section-gap) / 2);
     }
 
     .logo {
@@ -61,8 +57,7 @@
     }
 
     #main {
-    float: right;
-    position: absolute;
-}
-}
+        float: left;
+    }
+
 </style>

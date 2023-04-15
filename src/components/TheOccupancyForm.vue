@@ -43,8 +43,36 @@
     export default{
         methods: {
             validDate(){
-                let today = new Date().toISOString().split('T')[0];
-                let two_days_from_today = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                // let today = new Date().toISOString().split('T')[0];
+                let today = new Date()
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                today = year + "-" + month + "-" + day
+
+                // let two_days_from_today = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                let two_days_from_today = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000)
+                day = two_days_from_today.getDate().toString()
+                month = (two_days_from_today.getMonth() + 1).toString()
+                year = two_days_from_today.getFullYear().toString()
+
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                two_days_from_today = year + "-" + month + "-" + day
+
                 document.getElementById("bookingdate1").setAttribute('min', today);
                 document.getElementById("bookingdate1").setAttribute('max', two_days_from_today)
 	        },

@@ -50,4 +50,8 @@
         float: right;
         padding: 100px;
     }
+
+    html * {
+        font-family: Montserrat;
+    }
 </style>

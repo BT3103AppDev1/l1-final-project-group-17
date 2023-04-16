@@ -30,7 +30,7 @@
 
     </table><br><br>
     
-    <button id = "im_here" type = "button" @click = buttonClicked>{{ buttonText }}</button><br><br>
+    <button id = "im_here" type = "button" @click = changeText>{{ buttonText }}</button><br><br>
 
     <h1 id = "Upcoming">My Upcoming Bookings</h1>
 
@@ -94,7 +94,6 @@
                 current_tableRows : [],
                 tableRows : [],
                 buttonText : "I'm Here"
-                
             };
         },
 
@@ -106,7 +105,7 @@
                 if (user) {
                     this.user = user
                     this.useremail = user.email
-                    this.pres = false //sus
+                    this.present = user.present 
                 }
             })
             while (!this.useremail) {
@@ -115,6 +114,7 @@
             }
             await this.fetchCurrentBooking(this.useremail);
             await this.fetchAndUpdateData(this.useremail);
+            await this.loadText()
             
         },
 
@@ -128,29 +128,41 @@
                 this.$router.push({ name: 'Occupancy' })
             },
 
-            //doesnt work yet
-            changeText() {
-                if (this.present == false ) {
-                    this.buttonText = "I'm Here";
-                    this.imHere(this.useremail)
-                    this.pres = true
-                } else {
+            //doesnt work 
+            async changeText() {
+                const docRefUser = await doc(db, "users", this.useremail)
+                let userbookings = await getDoc(docRefUser)
+                let userdata = userbookings.data()["bookings"]
+                let todaybooking = userdata.filter(this.currentDate)[0]
+
+
+                if (todaybooking.present == false) {
+                    console.log(todaybooking)
+                    console.log("if")
                     this.buttonText = "End Booking Early";
+                    this.imHere(this.useremail)
+                    todaybooking["present"] = true
+                } else {
+                    console.log(todaybooking)
+                    console.log("else")
+                    this.buttonText = "I'm Here";
                     this.endBookingEarly(this.useremail)
-                    this.pres = false
+                    todaybooking["present"] = false
                 }
             },
 
-            buttonClicked() {
-                if (this.buttonText == "I'm Here") {
-                        this.buttonText = "End Booking Early";
-                        this.imHere(this.useremail)
-                    } else {
-                        this.buttonText = "I'm Here";
-                        this.endBookingEarly(this.useremail)
-                    }              
-            },
+            async loadText() {
+                const docRefUser = await doc(db, "users", this.useremail)
+                let userbookings = await getDoc(docRefUser)
+                let userdata = userbookings.data()["bookings"]
+                let todaybooking = userdata.filter(this.currentDate)[0]
 
+                if (todaybooking.present == true) {
+                    this.buttonText = "End Booking Early";
+                } else {
+                    this.buttonText = "I'm Here";
+                }
+            },
 
             validDate(booking) {    
                 let today = new Date()

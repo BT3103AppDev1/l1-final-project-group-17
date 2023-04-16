@@ -178,9 +178,9 @@
                 }
 
                 today = year + "-" + month + "-" + day
-                //let currTime = new Date().toString().split(" ")[4].split(":")
+                let currTime = new Date().toString().split(" ")[4].split(":")
 
-                let currTime = ["08", "45", "00"]
+                //let currTime = ["08", "45", "00"]
                 let currHour = currTime[0] + "00"
 
                 console.log("booking date")
@@ -216,8 +216,8 @@
                 }
 
                 today = year + "-" + month + "-" + day
-                // let currTime = new Date().toString().split(" ")[4].split(":")
-                let currTime = ["08", "45", "00"]
+                let currTime = new Date().toString().split(" ")[4].split(":")
+                //let currTime = ["08", "45", "00"]
                 let currHour = currTime[0] + "00"
 
                 console.log("booking date")

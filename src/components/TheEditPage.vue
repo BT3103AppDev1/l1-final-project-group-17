@@ -73,11 +73,17 @@
             </div>
         </form>
 
-        <div class = "picture">
-                <img src = "@/assets/clb_level_6.jpg" alt="Seating plan not found" v-if="clblevel6">
-                <img src = "@/assets/clb_level_5.jpg" alt="Seating plan not found" v-if="clblevel5">
-                <img src = "@/assets/clb_chinese_6.jpg" alt="Seating plan not found" v-if="clbchinese">
-        </div>  
+        <div id = "pictures">
+                <div class = "picture" v-if= "clblevel5">
+                    <TheFloorplanCLB5Vue />
+                </div>
+                <div class = "picture" v-if= "clblevel6">
+                    <TheFloorplanCLB6Vue />
+                </div>
+                <div class = "picture" v-if= "clbchinese">
+                    <TheFloorplanCN6Vue />
+                </div>
+            </div>   
     </div>
 
     <div class = "buttons">
@@ -96,10 +102,18 @@
     import { deleteField, getFirestore, updateDoc } from "firebase/firestore";
     import { collection, getDoc, setDoc, doc, deleteDoc, FieldValue, arrayRemove } from "firebase/firestore";
     import {getAuth, onAuthStateChanged} from "firebase/auth";
+    import TheFloorplanCLB5Vue from '../components/TheFloorplanCLB5.vue'
+    import TheFloorplanCLB6Vue from '../components/TheFloorplanCLB6.vue'
+    import TheFloorplanCN6Vue from '../components/TheFloorplanCN6.vue'
     const db = getFirestore(firebaseApp);
     
 
     export default {
+        components:{
+            TheFloorplanCLB5Vue,
+            TheFloorplanCLB6Vue,
+            TheFloorplanCN6Vue
+        },
         data: function() {
             return {
                 oldBooking : JSON.parse(this.$route.params.booking),

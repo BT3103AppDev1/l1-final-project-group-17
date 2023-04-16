@@ -75,25 +75,6 @@
 </script>
 
 <style scoped>
-    table {
-        background-color: #595959;
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width:0.1%;
-        white-space: nowrap;
-        table-layout:auto;
-    }
-
-    th,td {
-        border: 0px solid white;
-        font-family: arial, sans-serif;
-        color: white;
-        text-align: left;
-        padding: 8px;
-        max-width:0.1%;
-        white-space: nowrap;
-    }
-
     .buttons {
         display: flex;
         width: 50%;

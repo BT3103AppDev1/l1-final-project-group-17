@@ -7,7 +7,7 @@ import Notifications from '@/views/Notifications.vue'
 import Logout from '@/components/TheLogoutPage.vue'
 import Delete from '@/views/Delete.vue'
 import Edit from '@/views/Edit.vue'
-import Confirmation from '@/components/TheBookingConfirmationPage.vue'
+import Confirmation from '@/views/Confirmation.vue'
 import Timetable from '@/views/Timetable.vue'
 
 const routes = [

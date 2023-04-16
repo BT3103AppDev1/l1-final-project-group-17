@@ -174,7 +174,7 @@
     }
 
     /**style big button */
-    #im_here, #view_occupancy, #new_booking {
+    #goHome {
         background-color:#ef7c00;
         font: 700;
         font-weight: bold;
@@ -182,16 +182,38 @@
         color: white;
         border-color: white;
         border-radius: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #goHome:hover {
+        transition: 0.3s;
+        background-color:#f3b97b;
+    }
+
+    #deleteBooking {
+        background-color:#003d7c;
+        font: 700;
+        font-weight: bold;
+        font-size: 1em;
+        color: white;
+        border-color: white;
         border-radius: 30px;
         padding-left: 30px;
         padding-right: 30px;
         padding-top: 10px;
         padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
-    #im_here:hover, #view_occupancy:hover, #new_booking:hover {
+    #deleteBooking:hover {
         transition: 0.3s;
-        background-color:#003d7c;
+        background-color:#5c96cf;
     }
 
     #buttons {

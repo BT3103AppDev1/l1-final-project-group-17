@@ -31,7 +31,7 @@
 
             this.imgs = [{
                 title: 'Central Library Level 5',
-                src: "../src/assets/clb_level_5.jpg"
+                src: "https://i.ibb.co/23Wphkc/clb-level-5.jpg"
             }]
             this.show()
             },

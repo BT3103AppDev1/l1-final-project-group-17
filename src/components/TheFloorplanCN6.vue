@@ -31,7 +31,7 @@
 
             this.imgs = [{
                 title: 'Central Library Level 6 (Chinese Library)',
-                src: "../src/assets/clb_chinese_6.jpg"
+                src: "https://i.ibb.co/V3qX5Fm/clb-chinese-6.jpg"
             }]
             this.show()
             },

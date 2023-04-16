@@ -494,7 +494,8 @@
                         level: level,
                         seat: seat,
                         time_start: time1,
-                        time_end: time2}
+                        time_end: time2,
+                        present: false}
 
                     console.log("Set in user")
                     console.log(userbooking)
@@ -512,16 +513,9 @@
                     }
 
 
-                    this.$router.push({ 
-                        name: 'Confirmation',
-                        query: {
-                            date: bookingdate,
-                            library: library,
-                            level: level,
-                            seat: seat,
-                            time_start: time1,
-                            time_end: time2}
-                    })
+                alert("Booking successfully edited!");
+                console.log("Booking successfully edited!");
+                this.$router.push({ name: 'Home' })
 
                 }
                 
@@ -553,6 +547,7 @@
                 let time1 = this.oldBooking.time_start
                 let time2 = this.oldBooking.time_end
                 let seat = this.oldBooking.seat
+                let present = this.oldBooking.present
 
                 let time1Int = parseInt(time1)
                 let time2Int = parseInt(time2)
@@ -622,7 +617,8 @@
                         level: level,
                         seat: seat,
                         time_start: time1,
-                        time_end: time2}
+                        time_end: time2,
+                        present: false}
 
                     console.log("Set in user")
                     console.log(userbooking)

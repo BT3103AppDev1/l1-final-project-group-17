@@ -1,5 +1,7 @@
 <template>
     <h1>View Occupancy for: {{library }} {{level }}, {{bookingdate2 }}</h1>
+    <body id = "red">Red: Seat is occupied</body>
+    <body id = "white">White: Seat is available</body>
 
     <table id = "table" class = "auto-index">
         <tr>
@@ -160,6 +162,16 @@
 </script>
 
 <style>
+    #red {
+        text-align:left;
+        color: indianred;
+    }
+
+    #white {
+        text-align:left;
+        color: white;
+    }
+
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;

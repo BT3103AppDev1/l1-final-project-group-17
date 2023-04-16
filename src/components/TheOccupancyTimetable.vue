@@ -1,7 +1,7 @@
 <template>
     <h1>View Occupancy for: {{library }} {{level }}, {{bookingdate2 }}</h1>
-    <body id = "red">Red: Seat is occupied</body>
-    <body id = "white">White: Seat is available</body>
+    <p id = "red">Red: Seat is occupied</p>
+    <p id = "white">White: Seat is available</p>
 
     <table id = "table" class = "auto-index">
         <tr>

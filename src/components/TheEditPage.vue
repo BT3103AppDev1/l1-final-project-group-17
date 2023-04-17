@@ -160,39 +160,29 @@
                 let occupancy = getDoc(occupancyRef)
 
                 timeStamps.forEach(function (time) {
-                    // count UNDEFINED!! i cant get it 
-                    // let count = occupancy[time] 
                     let count = 10
-                    //console.log("HERE " + count)
                     updateDoc(occupancyRef, {
                         [time]: count - 1
                     });
                 });
 
 
-                console.log(timeStamps)
                 let path = this.oldBooking.date + "/" + this.oldBooking.library + "/" + this.oldBooking.level + "/" + this.oldBooking.seat
-                console.log(path)
 
                 timeStamps.forEach(function (time) {
-                    console.log(time)
                     const bookingRef = doc(db, path);
-                    console.log(bookingRef)
                     updateDoc(bookingRef, {
                         [time]: deleteField()
                     });
                 });
                 
                 let path2 = "users/" + String(this.useremail)
-                console.log(path2)
 
                 const bookingRef2 = doc(db, path2);
-                console.log(this.oldBooking)
                 updateDoc(bookingRef2, {
                     "bookings": arrayRemove(this.oldBooking)
                 });
 
-                console.log("Booking successfully deleted!");
             },
             
             gobackbutton() {
@@ -298,8 +288,6 @@
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
-    
-                console.log(bookingdate)
 
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
@@ -407,7 +395,6 @@
                         //Filter out different dates
                         userdata = userdata.filter(booking => booking["date"] == bookingdate)
                         //Filter out non-clashing times
-                        console.log("CHECK VALID USER BOOKING")
                         userdata = userdata.filter(booking => this.validUserBooking(booking, time1, time2))
 
                         if (userdata.length > 0) {
@@ -433,8 +420,6 @@
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     const docRefUser = await doc(db, "users", String(this.useremail))
 
-                    console.log(bookingdate)
-
                     let data = {}
 
                     let timeadd = time1Int
@@ -449,28 +434,11 @@
                         timeadd += 100
                     }
 
-                    console.log("Set in booking dates")
-                    console.log(data)
-
                     await setDoc(docRefBookings, data);
 
                     //Add to occupancy 
                     const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
                     let dataOcc = {}
-
-                    //how to initialise occupancy for each date
-                    //occupancy doc resets 
-                    //console.log("HEREEE" + occupancy.exists())
-
-                    //if (!occupancy.exists()) {
-                        //await setDoc(docRefOccupancy, {})
-                    //} 
-                    //if (!occupancy.data()) {
-                        //await setDoc(docRefOccupancy, {})
-                    //}
-
-                    // timeadd starts off as start time 
-                    // time2Int is the endtime
 
                     let occupancy = await getDoc(docRefOccupancy)
 
@@ -497,8 +465,6 @@
                         }
                         timeadd += 100
                     }
-                    // check
-                    console.log("after")
                     
                     // Add to user
                     let userbookings = await getDoc(docRefUser)
@@ -510,9 +476,6 @@
                         time_start: time1,
                         time_end: time2,
                         present: false}
-
-                    console.log("Set in user")
-                    console.log(userbooking)
 
                     if (userbookings.exists()) {
                         let userdata = userbookings.data()["bookings"]
@@ -528,7 +491,6 @@
 
 
                 alert("Booking successfully edited!");
-                console.log("Booking successfully edited!");
                 this.$router.push({ name: 'Home' })
 
                 }
@@ -572,8 +534,6 @@
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     const docRefUser = await doc(db, "users", String(this.useremail))
 
-                    console.log(bookingdate)
-
                     let data = {}
 
                     let timeadd = time1Int
@@ -587,9 +547,6 @@
                         data[timeaddstr] = this.useremail
                         timeadd += 100
                     }
-
-                    console.log("Set in booking dates")
-                    console.log(data)
 
                     await setDoc(docRefBookings, data);
                     const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
@@ -620,8 +577,6 @@
                         }
                         timeadd += 100
                     }
-                    // check
-                    console.log("after")
                     
                     // Add to user
                     let userbookings = await getDoc(docRefUser)
@@ -633,9 +588,6 @@
                         time_start: time1,
                         time_end: time2,
                         present: false}
-
-                    console.log("Set in user")
-                    console.log(userbooking)
 
                     if (userbookings.exists()) {
                         let userdata = userbookings.data()["bookings"]

@@ -226,22 +226,6 @@
                 let library = document.getElementById("library1").value
                 let level = document.getElementById("level1").value
                 let bookingdate = document.getElementById("bookingdate1").value
-    
-                // let bookingdatearr = bookingdate.split("-")
-                // let day = bookingdatearr[0]
-                // let month = bookingdatearr[1]
-                // let year = bookingdatearr[2]
-
-                // if (day.length == 1) {
-                //     day = "0" + day
-                // }
-
-                // if (month.length == 1) {
-                //     month = "0" + month
-                // }
-
-                // bookingdate = year + "-" + month + "-" + day
-                console.log(bookingdate)
 
                 //2023-03-27 -> format of bookingdate
                 let time1 = document.getElementById("time1").value
@@ -340,7 +324,6 @@
                         //Filter out different dates
                         userdata = userdata.filter(booking => booking["date"] == bookingdate)
                         //Filter out non-clashing times
-                        console.log("CHECK VALID USER BOOKING")
                         userdata = userdata.filter(booking => this.validUserBooking(booking, time1, time2))
 
                         if (userdata.length > 0) {
@@ -364,8 +347,6 @@
                     const docRefBookings = await doc(db, String(bookingdate), String(library), String(level), String(seat))
                     const docRefUser = await doc(db, "users", String(this.useremail))
 
-                    console.log(bookingdate)
-
                     let data = {}
 
                     let timeadd = time1Int
@@ -380,28 +361,11 @@
                         timeadd += 100
                     }
 
-                    console.log("Set in booking dates")
-                    console.log(data)
-
                     await setDoc(docRefBookings, data);
 
                     //Add to occupancy 
                     const docRefOccupancy = await doc(db, String(bookingdate), "Occupancy")
                     let dataOcc = {}
-
-                    //how to initialise occupancy for each date
-                    //occupancy doc resets 
-                    //console.log("HEREEE" + occupancy.exists())
-
-                    //if (!occupancy.exists()) {
-                        //await setDoc(docRefOccupancy, {})
-                    //} 
-                    //if (!occupancy.data()) {
-                        //await setDoc(docRefOccupancy, {})
-                    //}
-
-                    // timeadd starts off as start time 
-                    // time2Int is the endtime
 
                     let occupancy = await getDoc(docRefOccupancy)
 
@@ -429,7 +393,6 @@
                         timeadd += 100
                     }
                     // check
-                    console.log("after")
                     
                     // Add to user
                     let userbookings = await getDoc(docRefUser)
@@ -441,9 +404,6 @@
                         time_start: time1,
                         time_end: time2,
                         present : false}
-
-                    console.log("Set in user")
-                    console.log(userbooking)
 
                     if (userbookings.exists()) {
                         let userdata = userbookings.data()["bookings"]

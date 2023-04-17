@@ -42,7 +42,6 @@
             signOut() {
                 const auth = getAuth();
                 const user = auth.currentUser;
-                console.log("Sign out " + user.email)
                 signOut(auth, user)
                 this.$router.push({name:'Login'})
             }

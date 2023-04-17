@@ -92,41 +92,30 @@
                 let occupancy = getDoc(occupancyRef)
 
                 timeStamps.forEach(function (time) {
-                    // count UNDEFINED!! i cant get it 
-                    // let count = occupancy.data()[time] 
                     let count = 10
-                    //console.log("HERE " + count)
                     updateDoc(occupancyRef, {
                         [time]: count - 1
                     });
                 });
 
-
-                console.log(timeStamps)
                 let path = this.booking.date + "/" + this.booking.library + "/" + this.booking.level + "/" + this.booking.seat
-                console.log(path)
 
                 timeStamps.forEach(function (time) {
-                    console.log(time)
                     const bookingRef = doc(db, path);
-                    console.log(bookingRef)
                     updateDoc(bookingRef, {
                         [time]: deleteField()
                     });
                 });
                 
                 let path2 = "users/" + String(this.useremail)
-                console.log(path2)
 
                 const bookingRef2 = doc(db, path2);
-                console.log(this.booking)
                 updateDoc(bookingRef2, {
                     "bookings": arrayRemove(this.booking)
                 });
 
 
                 alert("Booking successfully deleted!");
-                console.log("Booking successfully deleted!");
                 this.$router.push({ name: 'Home' })
 
 

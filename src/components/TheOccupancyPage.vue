@@ -55,19 +55,12 @@
                 //let currTime = ["08", "45", "00"]
                 let time = currTime[0] + "00"
 
-                console.log(time)
-                console.log(today)
-
                 const docRefOccupancy = await doc(db, today, "Occupancy")
                 const occupancyByTime = await getDoc(docRefOccupancy)
                 
                 if (occupancyByTime.exists()) {
                     let count = occupancyByTime.data()
-                    console.log("count")
-                    console.log(count)
                     let value = 100*count[time]/800;
-                    console.log("value")
-                    console.log(value)
 
                     if (isNaN(value)) {
                         this.clbOcc = 0
@@ -75,7 +68,6 @@
                         this.clbOcc = value
                     }
 
-                    console.log(this.clbOcc)
                 }
 
                 return {

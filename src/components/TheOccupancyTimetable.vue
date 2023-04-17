@@ -56,7 +56,6 @@
 
         methods: {
             async loadtimetable() {
-                console.log("Booking details: " + this.bookingdate + "|" + this.library + "|" + this.level)
                 let allDocuments = await getDocs(collection(db, String(this.bookingdate), String(this.library), String(this.level)))
                 var table = document.getElementById("table");
                 let seats = new Map()
@@ -68,15 +67,12 @@
 
                 allDocuments.forEach((docs) => {
                     let timings = new Map()
-                    console.log("Seat number: ",docs.id)
-                    console.log("Booking data: ", docs.data())
                     for (let key in docs.data()) {
                         timings.set(key, 1)
                     }
                     seats.set(docs.id, timings)
                 })
 
-                console.log(seats)
 
                 let count = 332
 

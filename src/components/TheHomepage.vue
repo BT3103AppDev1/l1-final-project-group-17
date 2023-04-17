@@ -109,7 +109,6 @@
                 }
             })
             while (!this.useremail) {
-                console.log(this.useremail)
                 await delay(100);  //delay if no useremail yet
             }
             await this.fetchCurrentBooking(this.useremail);
@@ -137,14 +136,10 @@
 
 
                 if (todaybooking.present == false) {
-                    console.log(todaybooking)
-                    console.log("if")
                     this.buttonText = "End Booking Early";
                     this.imHere(this.useremail)
                     todaybooking["present"] = true
                 } else {
-                    console.log(todaybooking)
-                    console.log("else")
                     this.buttonText = "I'm Here";
                     this.endBookingEarly(this.useremail)
                     todaybooking["present"] = false
@@ -183,11 +178,6 @@
                 //let currTime = ["08", "45", "00"]
                 let currHour = currTime[0] + "00"
 
-                console.log("booking date")
-                console.log(booking.date)
-                console.log("today")
-                console.log(today)
-
                 let bookingIsUpcoming = false
 
                 if (today < booking.date) {
@@ -219,11 +209,6 @@
                 let currTime = new Date().toString().split(" ")[4].split(":")
                 //let currTime = ["08", "45", "00"]
                 let currHour = currTime[0] + "00"
-
-                console.log("booking date")
-                console.log(booking.date)
-                console.log("today")
-                console.log(today)
 
                 let bookingIsNow = false
 
@@ -287,10 +272,6 @@
             let userdata = userbookings.data()["bookings"]
             let userdataV = userdata.filter(this.validDate)
 
-            console.log(userdataV)
-
-            console.log(new Date())
-
 
             // Promise.all to ensure all async operations are over.
             // allDocuments.docs.map(async (doc) to iterate over all documents and create arrays of promises
@@ -346,26 +327,15 @@
                 today = year + "-" + month + "-" + day
 
                 let currentbooking = document.getElementById("current_table").rows[1]
-                console.log(currentbooking)
 
                 const docRefUser = await doc(db, "users", useremail)
                 let userbookings = await getDoc(docRefUser)
                 let userdata = userbookings.data()["bookings"]
                 let todaybooking = userdata.filter(this.currentDate)[0]
 
-
-                
-                console.log("Before change: ", userdata.length)
-                console.log(userdata)
-
                 for (let i = 0; i < userdata.length; i++) {
                     if (userdata[i] == todaybooking){
-                        console.log("The booking before:")
-                        console.log(userdata[i])
-
                         userdata[i]["present"] = true
-                        console.log("The booking after:")
-                        console.log(userdata[i])
                     }
                 }
 
@@ -396,12 +366,7 @@
 
                 for (let i = 0; i < userdata.length; i++) {
                     if (userdata[i] == todaybooking){
-                        console.log("The booking before:")
-                        console.log(userdata[i])
-
                         userdata[i]["present"] = false
-                        console.log("The booking after:")
-                        console.log(userdata[i])
                     }
                 }
 

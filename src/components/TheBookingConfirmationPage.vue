@@ -51,14 +51,6 @@
             this.timestart = this.$route.query.time_start
             this.timeend = this.$route.query.time_end
             this.seat = this.$route.query.seat
-
-            console.log(this.library)
-            console.log(this.level)
-            console.log(this.date)
-            console.log(this.timestart)
-            console.log(this.timeend)
-            console.log(this.seat)
-
         },
 
         data(){

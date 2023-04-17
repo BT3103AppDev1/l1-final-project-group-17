@@ -38,10 +38,22 @@
 
         methods: {
             async fetchCurrCount() {
-                let today = new Date().toISOString().split('T')[0]
-                let fulltime = new Date().toISOString().split('T')[1]
+                let today = new Date()
+                let day = today.getDate().toString()
+                let month = (today.getMonth() + 1).toString()
+                let year = today.getFullYear().toString()
 
-                let time = fulltime.split(':')[0].toString() + "00"
+                if (day.length == 1) {
+                    day = "0" + day
+                }
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+
+                today = year + "-" + month + "-" + day
+                let currTime = new Date().toString().split(" ")[4].split(":")
+                //let currTime = ["08", "45", "00"]
+                let time = currTime[0] + "00"
 
                 console.log(time)
                 console.log(today)
@@ -50,8 +62,12 @@
                 const occupancyByTime = await getDoc(docRefOccupancy)
                 
                 if (occupancyByTime.exists()) {
-                    let count = occupancyByTime.data() 
+                    let count = occupancyByTime.data()
+                    console.log("count")
+                    console.log(count)
                     let value = 100*count[time]/800;
+                    console.log("value")
+                    console.log(value)
 
                     if (isNaN(value)) {
                         this.clbOcc = 0
